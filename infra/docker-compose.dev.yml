@@ -1,0 +1,44 @@
+# =============================================================================
+# Development Docker Compose Override
+# =============================================================================
+#
+# Usage: docker-compose -f infra/docker-compose.yml -f infra/docker-compose.dev.yml up
+#
+# This file enables:
+#   - Hot reload with volume mounts
+#   - Debug ports
+#   - Development environment variables
+
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: infra/docker/web.Dockerfile
+      target: builder  # Use builder stage for dev
+    volumes:
+      - ../frontend/web/src:/app/frontend/web/src:ro
+      - ../shared:/app/shared:ro
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+      target: builder
+    volumes:
+      - ../backend/api:/app/backend/api:ro
+      - ../shared:/app/shared:ro
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  nlp:
+    volumes:
+      - ../ai/nlp/app:/app/app:ro
+    environment:
+      - PYTHONDONTWRITEBYTECODE=0
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
