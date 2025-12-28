@@ -1,0 +1,94 @@
+# =============================================================================
+# Vibe Trend Analyzer - Full Stack Docker Compose
+# =============================================================================
+#
+# Usage:
+#   Development: docker-compose -f infra/docker-compose.yml up
+#   Production:  docker-compose -f infra/docker-compose.yml -f infra/docker-compose.prod.yml up -d
+#
+# Services:
+#   - web: Frontend React app (port 3000)
+#   - api: Backend API gateway (port 5000)
+#   - nlp: NLP sentiment analysis service (port 8000)
+
+version: '3.8'
+
+services:
+  # ===========================================================================
+  # Frontend Web App
+  # ===========================================================================
+  web:
+    build:
+      context: ..
+      dockerfile: infra/docker/web.Dockerfile
+    container_name: vibe-web
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - vibe-network
+
+  # ===========================================================================
+  # Backend API Gateway
+  # ===========================================================================
+  api:
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+    container_name: vibe-api
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - NLP_SERVICE_URL=http://nlp:8000
+      - NEWSAPI_KEY=${NEWSAPI_KEY}
+      - COINMARKETCAP_API_KEY=${COINMARKETCAP_API_KEY}
+      - TWITTER_BEARER_TOKEN=${TWITTER_BEARER_TOKEN}
+    depends_on:
+      nlp:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - vibe-network
+
+  # ===========================================================================
+  # NLP Sentiment Analysis Service
+  # ===========================================================================
+  nlp:
+    build:
+      context: ..
+      dockerfile: infra/docker/nlp.Dockerfile
+    container_name: vibe-nlp
+    ports:
+      - "8000:8000"
+    environment:
+      - TRANSFORMERS_CACHE=/app/.cache/huggingface
+      - HF_HOME=/app/.cache/huggingface
+    volumes:
+      - nlp_model_cache:/app/.cache/huggingface
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 180s
+    restart: unless-stopped
+    networks:
+      - vibe-network
+
+volumes:
+  nlp_model_cache:
+    driver: local
+
+networks:
+  vibe-network:
+    driver: bridge

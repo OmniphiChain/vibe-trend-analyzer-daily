@@ -1,0 +1,29 @@
+# FastAPI NLP Sentiment Analysis Service - Dependencies
+#
+# VPS Installation (CPU-only, saves ~2GB):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r requirements.txt
+#
+# Standard Installation (with CUDA support):
+#   pip install -r requirements.txt
+
+# =============================================================================
+# Web Framework
+# =============================================================================
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+
+# =============================================================================
+# Machine Learning / NLP
+# =============================================================================
+# Note: Install torch separately for CPU-only VPS (see above)
+torch>=2.0.0
+transformers>=4.35.0
+accelerate>=0.25.0
+sentencepiece>=0.1.99
+
+# =============================================================================
+# Production Server
+# =============================================================================
+gunicorn>=21.2.0

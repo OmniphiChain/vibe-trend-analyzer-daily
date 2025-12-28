@@ -1,0 +1,44 @@
+# Systemd service file for NLP Sentiment Analysis API
+# Install: sudo cp infra/scripts/nlp-service.service /etc/systemd/system/
+# Enable:  sudo systemctl enable nlp-service
+# Start:   sudo systemctl start nlp-service
+# Status:  sudo systemctl status nlp-service
+# Logs:    journalctl -u nlp-service -f
+
+[Unit]
+Description=NLP Sentiment Analysis FastAPI Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/vibe/ai/nlp
+Environment="PATH=/opt/vibe/ai/nlp/venv/bin"
+Environment="TRANSFORMERS_CACHE=/opt/vibe/ai/nlp/.cache/huggingface"
+Environment="HF_HOME=/opt/vibe/ai/nlp/.cache/huggingface"
+
+# Start command - single worker to share model memory
+ExecStart=/opt/vibe/ai/nlp/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 1
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Resource limits
+MemoryMax=8G
+CPUQuota=200%
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/vibe/ai/nlp/.cache
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=nlp-service
+
+[Install]
+WantedBy=multi-user.target

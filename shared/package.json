@@ -1,0 +1,23 @@
+{
+  "name": "@vibe/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./contracts": "./contracts/index.ts",
+    "./contracts/*": "./contracts/*.ts",
+    "./types": "./types/index.ts",
+    "./schema": "./schema.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.39.1",
+    "drizzle-zod": "^0.7.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3"
+  }
+}
