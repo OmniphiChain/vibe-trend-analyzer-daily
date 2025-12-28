@@ -461,7 +461,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                             ? 'bg-[#E8F8F4] text-[#22AB94] border-[#22AB94]/30'
                             : 'bg-blue-500/20 text-blue-300 border-blue-500/30'
                         }`}>
-                          ${selectedFinanceStock}
+                          {selectedFinanceStock}
                         </Badge>
                       </CardTitle>
                     </CardHeader>
