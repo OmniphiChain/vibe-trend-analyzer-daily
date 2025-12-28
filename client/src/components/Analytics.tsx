@@ -930,7 +930,7 @@ export const Analytics = () => {
                             <p className="text-gray-400 text-xs truncate max-w-32">{stock.name}</p>
                           </div>
                           <Badge className={getSentimentBg(stock.sentiment)}>
-                            {stock.sentiment}%
+                            {stock.sentiment.toFixed(2)}%
                           </Badge>
                         </div>
 
