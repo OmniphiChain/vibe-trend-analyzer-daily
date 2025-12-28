@@ -779,7 +779,7 @@ export const Analytics = () => {
                           <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs">🔙</Badge>
                           <span className="text-gray-300 text-sm">Sentiment Backtesting</span>
                         </div>
-                        <Button className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 text-black font-semibold mt-3">
+                        <Button onClick={() => setShowUpgradeModal(true)} className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 text-black font-semibold mt-3">
                           Upgrade to Pro
                         </Button>
                       </div>
