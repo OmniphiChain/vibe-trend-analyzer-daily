@@ -7,14 +7,8 @@ const plugins = [
   runtimeErrorOverlay(),
 ];
 
-if (process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined) {
-  try {
-    const cartographerModule = await import("@replit/vite-plugin-cartographer");
-    plugins.push(cartographerModule.cartographer());
-  } catch (e) {
-    // Optional plugin, skip if not available
-  }
-}
+// Note: Cartographer plugin loading is handled at request time in the backend
+// rather than at config time to avoid import issues
 
 const config = {
   plugins,
