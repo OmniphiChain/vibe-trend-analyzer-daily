@@ -33,6 +33,7 @@ export const Analytics = () => {
   const [showLoadDialog, setShowLoadDialog] = useState(false);
   const [newTemplateName, setNewTemplateName] = useState("");
   const [loadTemplateTab, setLoadTemplateTab] = useState("All Templates");
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   // Mock stock data for the screener
   const stockData = [
