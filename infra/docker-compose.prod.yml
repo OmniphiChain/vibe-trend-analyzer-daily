@@ -1,0 +1,139 @@
+# =============================================================================
+# Vibe Trend Analyzer - PRODUCTION Docker Compose Override
+# =============================================================================
+#
+# Usage:
+#   docker-compose -f infra/docker-compose.yml -f infra/docker-compose.prod.yml up -d
+#
+# Features:
+#   - Redis for distributed caching and sessions
+#   - Proper secrets management
+#   - Health checks for all services
+#   - Resource limits
+#   - Logging configuration
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ===========================================================================
+  # Frontend - Production Config
+  # ===========================================================================
+  web:
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ===========================================================================
+  # Backend API - Production Config
+  # ===========================================================================
+  api:
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - REDIS_URL=redis://redis:6379
+      - NLP_SERVICE_URL=http://nlp:8000
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-https://yourdomain.com}
+      - NEWSAPI_KEY=${NEWSAPI_KEY}
+      - COINMARKETCAP_API_KEY=${COINMARKETCAP_API_KEY}
+      - TWITTER_BEARER_TOKEN=${TWITTER_BEARER_TOKEN}
+      - FINNHUB_API_KEY=${FINNHUB_API_KEY}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      redis:
+        condition: service_healthy
+      nlp:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  # ===========================================================================
+  # NLP Service - Production Config
+  # ===========================================================================
+  nlp:
+    restart: always
+    environment:
+      - TRANSFORMERS_CACHE=/app/.cache/huggingface
+      - HF_HOME=/app/.cache/huggingface
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - OMP_NUM_THREADS=2
+      - MKL_NUM_THREADS=2
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+          cpus: '2'
+        reservations:
+          memory: 4G
+          cpus: '1'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  # ===========================================================================
+  # Redis - Cache & Sessions
+  # ===========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: vibe-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - vibe-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  nlp_model_cache:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  vibe-network:
+    driver: bridge

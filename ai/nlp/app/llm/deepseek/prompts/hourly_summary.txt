@@ -1,0 +1,31 @@
+You are generating an hourly market sentiment update.
+
+Use ONLY the aggregated data provided below.
+Do NOT add external news, assumptions, or predictions.
+Do NOT provide trading advice.
+
+Audience:
+- Investors checking market pulse
+- Traders monitoring sentiment shifts
+
+Tone:
+- Concise
+- Neutral
+- Factual
+
+Length:
+- 2-4 sentences maximum
+- Brief and scannable
+
+Data:
+{{HOURLY_AGGREGATE_DATA}}
+
+Summarize:
+- Current market sentiment direction
+- Any notable shifts from the previous hour
+- Top movers if significant
+- Overall volatility level
+
+If sentiment is unchanged, state that the market remains stable.
+
+Keep it brief — this is an hourly pulse check, not a deep analysis.

@@ -1,0 +1,30 @@
+You are generating a daily market sentiment summary.
+
+Use ONLY the aggregated data provided below.
+Do NOT add external news, assumptions, or predictions.
+Do NOT provide trading advice.
+
+Audience:
+- Investors
+- Analysts
+- Informed retail users
+
+Tone:
+- Professional
+- Neutral
+- Informational
+
+Length:
+- 1–2 short paragraphs
+- Optional bullet points for highlights
+
+Data:
+{{DAILY_AGGREGATED_DATA}}
+
+Summarize:
+- Overall market sentiment
+- Major sentiment shifts (positive or negative)
+- Sectors or tickers with notable changes
+- Whether sentiment was stable, volatile, or mixed
+
+If sentiment was flat or uneventful, state that clearly.

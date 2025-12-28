@@ -157,7 +157,7 @@ export async function robustFetch(
   let lastError: Error | null = null;
 
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    const { controller, cleanup } = createTimeoutController(timeout, fetchOptions.signal);
+    const { controller, cleanup } = createTimeoutController(timeout, fetchOptions.signal ?? undefined);
 
     try {
       const response = await fetch(url, {

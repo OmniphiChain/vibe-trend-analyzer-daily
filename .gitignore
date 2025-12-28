@@ -13,13 +13,22 @@ build/
 *.tar.gz
 
 # =============================================================================
-# Environment & Secrets
+# Environment & Secrets (CRITICAL - never commit real secrets!)
 # =============================================================================
 .env
 .env.local
 .env.*.local
+.env.development
+.env.production
+.env.staging
+!.env.example
 *.pem
+*.key
 credentials.json
+secrets.json
+backend/api/.env
+ai/nlp/.env
+frontend/web/.env
 
 # =============================================================================
 # Python

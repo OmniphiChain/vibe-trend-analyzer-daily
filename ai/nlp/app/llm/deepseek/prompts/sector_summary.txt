@@ -1,0 +1,27 @@
+You are generating a daily sector sentiment summary.
+
+Use ONLY the aggregated sector data provided below.
+Do NOT add external news, assumptions, or predictions.
+Do NOT provide trading advice.
+
+Audience:
+- Sector-focused investors
+- Analysts tracking industry trends
+
+Tone:
+- Professional
+- Neutral
+- Factual
+
+Length:
+- 2-3 sentences maximum
+
+Data:
+{{SECTOR_AGGREGATE_DATA}}
+
+Summarize:
+- Sector sentiment direction
+- Change from previous day (if notable)
+- Top performer in the sector (if any)
+
+If sentiment is flat, state that the sector remains stable.

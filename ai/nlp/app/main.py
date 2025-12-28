@@ -43,6 +43,13 @@ from app.schemas import (
     BatchFullAnalysisResponse,
     StreamAnalysisRequest,
     StreamBatchRequest,
+    # Intelligence layer schemas
+    IntelligenceRequest,
+    IntelligenceResponse,
+    IntelligenceFromTextRequest,
+    IntelligenceFromTextResponse,
+    BatchIntelligenceRequest,
+    BatchIntelligenceResponse,
 )
 from app.services import (
     analyze_finance_sentiment,
@@ -60,6 +67,32 @@ from app.streaming import (
     stream_single_analysis,
     stream_batch_analysis,
 )
+from app.intelligence import run_ai_layer, run_ai_layer_batch
+
+# LLM layer (optional - gracefully degrades if not configured)
+try:
+    from app.llm.deepseek import deepseek_router
+    LLM_AVAILABLE = True
+except ImportError:
+    LLM_AVAILABLE = False
+    deepseek_router = None
+
+# Scheduled summaries (optional - gracefully degrades if not configured)
+try:
+    from app.summaries import summaries_router, get_scheduler
+    SUMMARIES_AVAILABLE = True
+except ImportError:
+    SUMMARIES_AVAILABLE = False
+    summaries_router = None
+    get_scheduler = None
+
+# Batch analyze API (optional - gracefully degrades if not configured)
+try:
+    from app.api import batch_analyze_router
+    BATCH_API_AVAILABLE = True
+except ImportError:
+    BATCH_API_AVAILABLE = False
+    batch_analyze_router = None
 
 # =============================================================================
 # Logging Configuration
@@ -112,10 +145,29 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     logger.info("Swagger docs available at /docs")
     logger.info("=" * 60)
 
+    # Start summary scheduler if available
+    if SUMMARIES_AVAILABLE and get_scheduler:
+        try:
+            scheduler = get_scheduler()
+            await scheduler.start()
+            logger.info("Summary scheduler started")
+        except Exception as e:
+            logger.error(f"Failed to start summary scheduler: {e}")
+
     yield  # Application runs here
 
     # Shutdown
     logger.info("Shutting down NLP service...")
+
+    # Stop summary scheduler
+    if SUMMARIES_AVAILABLE and get_scheduler:
+        try:
+            scheduler = get_scheduler()
+            await scheduler.stop()
+            logger.info("Summary scheduler stopped")
+        except Exception as e:
+            logger.error(f"Error stopping summary scheduler: {e}")
+
     logger.info("Cleanup complete")
 
 
@@ -148,6 +200,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include LLM router if available (optional capability)
+if LLM_AVAILABLE and deepseek_router:
+    app.include_router(deepseek_router)
+    logger.info("DeepSeek LLM router registered at /llm")
+
+# Include summaries router if available
+if SUMMARIES_AVAILABLE and summaries_router:
+    app.include_router(summaries_router)
+    logger.info("Summaries router registered at /summaries")
+
+# Include batch analyze router if available
+if BATCH_API_AVAILABLE and batch_analyze_router:
+    app.include_router(batch_analyze_router)
+    logger.info("Batch analyze router registered at /batch-analyze")
 
 
 # =============================================================================
@@ -834,32 +901,313 @@ async def stream_batch(
 )
 async def root():
     """Root endpoint with API information."""
+    endpoints = {
+        "single": {
+            "finance_sentiment": "POST /sentiment/finance",
+            "social_sentiment": "POST /sentiment/social",
+            "emotion": "POST /emotion",
+            "ner": "POST /ner",
+            "full_analysis": "POST /analyze",
+        },
+        "batch": {
+            "finance_sentiment": "POST /batch/sentiment/finance",
+            "social_sentiment": "POST /batch/sentiment/social",
+            "emotion": "POST /batch/emotion",
+            "ner": "POST /batch/ner",
+            "full_analysis": "POST /batch/analyze",
+        },
+        "streaming": {
+            "single_analysis": "GET/POST /stream/analyze",
+            "batch_analysis": "POST /stream/batch",
+        },
+        "intelligence": {
+            "analyze": "POST /intelligence/analyze",
+            "analyze_text": "POST /intelligence/analyze-text",
+            "batch": "POST /intelligence/batch",
+        }
+    }
+
+    # Add LLM endpoints if available
+    if LLM_AVAILABLE:
+        endpoints["llm"] = {
+            "explain": "POST /llm/explain",
+            "daily_summary": "POST /llm/daily-summary",
+            "narrative": "POST /llm/narrative",
+            "usage": "GET /llm/usage",
+            "health": "GET /llm/health",
+        }
+
+    # Add summaries endpoints if available
+    if SUMMARIES_AVAILABLE:
+        endpoints["summaries"] = {
+            "hourly": "GET /summaries/hourly",
+            "daily": "GET /summaries/daily",
+            "sectors": "GET /summaries/sectors",
+            "health": "GET /summaries/health",
+            "stats": "GET /summaries/stats",
+        }
+
+    # Add batch analyze endpoints if available
+    if BATCH_API_AVAILABLE:
+        endpoints["batch"] = {
+            "analyze": "POST /batch-analyze",
+            "cache_stats": "GET /batch-analyze/cache/stats",
+        }
+
     return {
         "service": "NLP Sentiment Analysis API",
         "version": "1.0.0",
         "docs": "/docs",
         "health": "/health",
-        "endpoints": {
-            "single": {
-                "finance_sentiment": "POST /sentiment/finance",
-                "social_sentiment": "POST /sentiment/social",
-                "emotion": "POST /emotion",
-                "ner": "POST /ner",
-                "full_analysis": "POST /analyze",
-            },
-            "batch": {
-                "finance_sentiment": "POST /batch/sentiment/finance",
-                "social_sentiment": "POST /batch/sentiment/social",
-                "emotion": "POST /batch/emotion",
-                "ner": "POST /batch/ner",
-                "full_analysis": "POST /batch/analyze",
-            },
-            "streaming": {
-                "single_analysis": "GET/POST /stream/analyze",
-                "batch_analysis": "POST /stream/batch",
-            }
-        }
+        "llm_available": LLM_AVAILABLE,
+        "summaries_available": SUMMARIES_AVAILABLE,
+        "batch_api_available": BATCH_API_AVAILABLE,
+        "endpoints": endpoints,
     }
+
+
+# =============================================================================
+# Intelligence Layer Endpoints (AI Brain)
+# =============================================================================
+
+@app.post(
+    "/intelligence/analyze",
+    response_model=IntelligenceResponse,
+    tags=["Intelligence"],
+    summary="Run AI intelligence analysis on model outputs",
+)
+async def intelligence_analyze(
+    body: IntelligenceRequest,
+) -> IntelligenceResponse:
+    """
+    Run the AI intelligence layer on pre-computed model outputs.
+
+    This is the core AI brain endpoint that transforms raw NLP scores into
+    actionable market intelligence. Use this when you already have model
+    outputs and need dashboard-ready analysis.
+
+    **Performs:**
+    1. Sentiment fusion (weighted combination of model scores)
+    2. Confidence scoring (based on agreement, volume, source reliability)
+    3. Trend detection (compares against historical data)
+    4. Emotion interpretation (maps to market psychology)
+    5. Anomaly detection (statistical outlier flagging)
+
+    **Input:**
+    - Model scores from FinBERT, social sentiment, and emotion analysis
+    - Optional historical scores for trend/anomaly detection
+    - Sample volume and source type for confidence calculation
+
+    **Output:**
+    - Fused sentiment label and score
+    - Confidence/reliability metric
+    - Trend direction and strength
+    - Market psychology interpretation
+    - Anomaly flags with reasons
+    """
+    try:
+        # Build model outputs dict for the AI layer
+        model_outputs = {
+            "finbert": body.finbert_score,
+            "social": body.social_score,
+            "emotion": body.emotion_score,
+            "finbert_tone": body.finbert_tone_score,
+        }
+
+        # Run the AI intelligence layer
+        result = run_ai_layer(
+            model_outputs=model_outputs,
+            historical_scores=body.historical_scores,
+            sample_volume=body.sample_volume,
+            source_type=body.source_type,
+            primary_emotion=body.primary_emotion,
+        )
+
+        return IntelligenceResponse(**result)
+
+    except Exception as e:
+        logger.error(f"Intelligence analysis error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Intelligence analysis failed: {str(e)}"
+        )
+
+
+@app.post(
+    "/intelligence/analyze-text",
+    response_model=IntelligenceFromTextResponse,
+    tags=["Intelligence"],
+    summary="End-to-end intelligence analysis from raw text",
+)
+async def intelligence_analyze_text(
+    request: Request,
+    body: IntelligenceFromTextRequest,
+) -> IntelligenceFromTextResponse:
+    """
+    Full end-to-end AI analysis pipeline from raw text.
+
+    This endpoint runs the complete pipeline:
+    1. NLP model inference (FinBERT, social, emotion)
+    2. AI intelligence layer processing
+
+    Use this for single-text analysis when you need both the raw
+    model outputs and the intelligence interpretation.
+
+    **Models used:**
+    - ProsusAI/finbert (financial sentiment)
+    - cardiffnlp/twitter-roberta-base-sentiment-latest (social sentiment)
+    - michellejieli/emotion_text_classifier (emotion)
+
+    **Returns:**
+    - Raw model scores for transparency
+    - Full intelligence analysis for dashboards
+    """
+    registry = get_models(request)
+
+    try:
+        # Step 1: Run NLP models to get scores
+        # Financial sentiment
+        finbert_score = 0.0
+        if registry.finbert:
+            try:
+                finance_result = analyze_finance_sentiment(
+                    text=body.text,
+                    finbert=registry.finbert,
+                    finbert_tone=registry.finbert_tone,
+                )
+                finbert_score = finance_result.ensemble.raw_score
+            except Exception as e:
+                logger.warning(f"FinBERT analysis failed: {e}")
+
+        # Social sentiment
+        social_score = 0.0
+        if registry.twitter_sentiment:
+            try:
+                social_result = analyze_social_sentiment(
+                    text=body.text,
+                    twitter_model=registry.twitter_sentiment,
+                )
+                # Convert label to score: positive=+1, neutral=0, negative=-1
+                label_map = {"positive": 1.0, "neutral": 0.0, "negative": -1.0}
+                social_score = label_map.get(social_result.label.lower(), 0.0)
+                # Weight by confidence
+                social_score *= social_result.confidence
+            except Exception as e:
+                logger.warning(f"Social analysis failed: {e}")
+
+        # Emotion classification
+        emotion_score = 0.0
+        primary_emotion = "neutral"
+        if registry.emotion_classifier:
+            try:
+                emotion_result = analyze_emotion(
+                    text=body.text,
+                    emotion_model=registry.emotion_classifier,
+                )
+                primary_emotion = emotion_result.primary_emotion
+
+                # Map emotion to sentiment modifier
+                emotion_sentiment_map = {
+                    "fear": -0.7,
+                    "anger": -0.5,
+                    "sadness": -0.6,
+                    "disgust": -0.4,
+                    "joy": 0.7,
+                    "surprise": 0.0,
+                    "neutral": 0.0,
+                }
+                emotion_score = emotion_sentiment_map.get(
+                    primary_emotion.lower(), 0.0
+                ) * emotion_result.primary_score
+            except Exception as e:
+                logger.warning(f"Emotion analysis failed: {e}")
+
+        # Step 2: Run AI intelligence layer
+        model_outputs = {
+            "finbert": finbert_score,
+            "social": social_score,
+            "emotion": emotion_score,
+        }
+
+        result = run_ai_layer(
+            model_outputs=model_outputs,
+            historical_scores=body.historical_scores,
+            sample_volume=body.sample_volume,
+            source_type=body.source_type,
+            primary_emotion=primary_emotion,
+        )
+
+        return IntelligenceFromTextResponse(
+            text=body.text,
+            model_outputs={
+                "finbert": finbert_score,
+                "social": social_score,
+                "emotion": emotion_score,
+                "primary_emotion": primary_emotion,
+            },
+            intelligence=IntelligenceResponse(**result),
+        )
+
+    except Exception as e:
+        logger.error(f"Intelligence text analysis error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Intelligence analysis failed: {str(e)}"
+        )
+
+
+@app.post(
+    "/intelligence/batch",
+    response_model=BatchIntelligenceResponse,
+    tags=["Intelligence"],
+    summary="Batch AI intelligence analysis",
+)
+async def intelligence_batch(
+    body: BatchIntelligenceRequest,
+) -> BatchIntelligenceResponse:
+    """
+    Process multiple intelligence analyses in batch.
+
+    Efficient batch processing for multiple sets of model outputs.
+    Use this when you have pre-computed NLP scores for multiple texts.
+
+    **Limits:**
+    - Maximum 100 items per request
+
+    **Returns:**
+    - Intelligence analysis for each input
+    """
+    try:
+        # Convert request items to batch input format
+        batch_inputs = []
+        for item in body.items:
+            batch_inputs.append({
+                "model_outputs": {
+                    "finbert": item.finbert_score,
+                    "social": item.social_score,
+                    "emotion": item.emotion_score,
+                    "finbert_tone": item.finbert_tone_score,
+                },
+                "historical_scores": item.historical_scores,
+                "sample_volume": item.sample_volume,
+                "source_type": item.source_type,
+                "primary_emotion": item.primary_emotion,
+            })
+
+        # Run batch processing
+        results = run_ai_layer_batch(batch_inputs)
+
+        return BatchIntelligenceResponse(
+            results=[IntelligenceResponse(**r) for r in results],
+            count=len(results),
+        )
+
+    except Exception as e:
+        logger.error(f"Batch intelligence analysis error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Batch intelligence analysis failed: {str(e)}"
+        )
 
 
 # =============================================================================

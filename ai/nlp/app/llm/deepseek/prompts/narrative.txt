@@ -1,0 +1,28 @@
+You are analyzing social sentiment narratives.
+
+Use ONLY the structured narrative data provided.
+Do NOT introduce outside context, events, or speculation.
+Do NOT provide opinions or advice.
+
+Goal:
+Identify dominant themes, concerns, or narratives that explain sentiment patterns.
+
+Tone:
+- Analytical
+- Neutral
+- Clear
+
+Length:
+- 4–8 sentences
+- Bullet points allowed for themes
+
+Data:
+{{NARRATIVE_DATA}}
+
+Describe:
+- Dominant narrative themes
+- Emotional drivers behind sentiment
+- Whether narratives are consistent or conflicting
+- Any notable shifts compared to recent baseline
+
+If no clear narrative exists, explicitly state that discussion is fragmented.
