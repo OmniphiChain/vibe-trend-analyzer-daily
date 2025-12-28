@@ -24,19 +24,10 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
-  // Dynamically import vite to get the actual npm package
+  // Dynamically import vite to avoid conflicts with local vite.ts file
+  // Using eval to force Node to resolve from node_modules instead of the local vite.ts
   const viteImport = eval('import("vite")');
-  const viteModule = await viteImport;
-  console.log("Available vite exports:", Object.keys(viteModule));
-
-  // Try different possible names for the server creation function
-  let createViteServer = viteModule.createServer;
-  if (!createViteServer) createViteServer = viteModule.default?.createServer;
-  if (!createViteServer) createViteServer = (viteModule as any).createViteDevServer;
-
-  if (!createViteServer) {
-    throw new Error(`createServer not found. Available exports: ${Object.keys(viteModule).join(", ")}`);
-  }
+  const { createServer: createViteServer } = await viteImport;
 
   const serverOptions = {
     middlewareMode: true,
