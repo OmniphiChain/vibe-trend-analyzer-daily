@@ -182,7 +182,7 @@ export const StockDetailPage: React.FC<StockDetailPageProps> = ({
                 'text-sm font-semibold mt-2',
                 stock.change >= 0 ? 'text-green-500' : 'text-red-500'
               )}>
-                {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.changePercent}%)
+                {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
               </div>
             </CardContent>
           </Card>
