@@ -244,7 +244,7 @@ const MOCK_STOCKS: StockData[] = [
 
 const SECTORS = ["All", "Technology", "Finance", "Healthcare", "Entertainment", "Consumer", "Automotive", "Energy"];
 
-export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ className }) => {
+export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ className, onNavigate }) => {
   const { themeMode } = useMoodTheme();
 
   // View states
