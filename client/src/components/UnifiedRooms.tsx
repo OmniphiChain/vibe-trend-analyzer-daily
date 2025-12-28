@@ -284,7 +284,7 @@ export const UnifiedRooms: React.FC = () => {
                   onClick={() => setState(prev => ({ ...prev, filter }))}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                     state.filter === filter
-                      ? 'bg-[var(--accent)] text-black'
+                      ? 'bg-[var(--accent)] text-white'
                       : 'text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--panel-soft)]'
                   }`}
                 >
