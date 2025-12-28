@@ -955,7 +955,31 @@ export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ cl
 
                         {/* Action Buttons */}
                         <div className="flex gap-2 pt-2">
-                          <Button size="sm" variant="outline" className="flex-1 text-xs">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1 text-xs"
+                            onClick={() => {
+                              if (onNavigate) {
+                                onNavigate("stock-detail", undefined, {
+                                  symbol: stock.ticker,
+                                  price: stock.currentPrice,
+                                  change: stock.change1D,
+                                  changePercent: ((stock.change1D / stock.currentPrice) * 100),
+                                  marketCap: stock.marketCap,
+                                  pe: stock.pe,
+                                  dividend: stock.dividend,
+                                  rsi: stock.rsi,
+                                  ma50: stock.ma50,
+                                  ma200: stock.ma200,
+                                  socialMentions: stock.socialMentions,
+                                  newsScore: stock.newsScore,
+                                  aiConfidence: stock.aiConfidence,
+                                  volatility: stock.volatility,
+                                });
+                              }
+                            }}
+                          >
                             <Eye className="w-3 h-3 mr-1" />
                             View
                           </Button>
