@@ -66,9 +66,11 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+  // Note: Skip setupVite when VITE_API_ONLY is set, which is used when
+  // running frontend dev separately
+  if (app.get("env") === "development" && !process.env.VITE_API_ONLY) {
     await setupVite(app, server);
-  } else {
+  } else if (app.get("env") !== "development") {
     serveStatic(app);
   }
 
