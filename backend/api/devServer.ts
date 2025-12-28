@@ -24,7 +24,8 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
-  const viteModule = await import("vite");
+  // Import vite from node_modules explicitly to avoid local file conflicts
+  const viteModule = await import("../../../node_modules/vite/dist/node/index.js" as any);
   console.log("Available vite exports:", Object.keys(viteModule));
 
   // Try different possible names for the server creation function
