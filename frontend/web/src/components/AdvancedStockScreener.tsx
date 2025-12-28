@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useMoodTheme } from "@/contexts/MoodThemeContext";
+import { useWatchlist } from "@/contexts/WatchlistContext";
+import { toast } from "sonner";
 import {
   getSentimentSignal,
   getRSISignal,
@@ -111,6 +113,7 @@ interface StockData {
 
 interface AdvancedStockScreenerProps {
   className?: string;
+  onNavigate?: (section: string, userId?: string, stock?: any) => void;
 }
 
 const MOCK_STOCKS: StockData[] = [
@@ -243,8 +246,9 @@ const MOCK_STOCKS: StockData[] = [
 
 const SECTORS = ["All", "Technology", "Finance", "Healthcare", "Entertainment", "Consumer", "Automotive", "Energy"];
 
-export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ className }) => {
+export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ className, onNavigate }) => {
   const { themeMode } = useMoodTheme();
+  const { addToWatchlist, isInWatchlist } = useWatchlist();
 
   // View states
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
@@ -927,7 +931,7 @@ export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ cl
                               <TooltipTrigger asChild>
                                 <div className={cn("flex items-center gap-1 cursor-help", getAIConfidenceLevel(stock.aiConfidence).color)}>
                                   <Zap className="w-3 h-3" />
-                                  AI {stock.aiConfidence}%
+                                  AI {stock.aiConfidence.toFixed(2)}%
                                 </div>
                               </TooltipTrigger>
                               <TooltipContent>
@@ -954,11 +958,51 @@ export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ cl
 
                         {/* Action Buttons */}
                         <div className="flex gap-2 pt-2">
-                          <Button size="sm" variant="outline" className="flex-1 text-xs">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1 text-xs"
+                            onClick={() => {
+                              if (onNavigate) {
+                                onNavigate("stock-detail", undefined, {
+                                  symbol: stock.ticker,
+                                  price: stock.currentPrice,
+                                  change: stock.change1D,
+                                  changePercent: ((stock.change1D / stock.currentPrice) * 100),
+                                  marketCap: stock.marketCap,
+                                  pe: stock.pe,
+                                  dividend: stock.dividend,
+                                  rsi: stock.rsi,
+                                  ma50: stock.ma50,
+                                  ma200: stock.ma200,
+                                  socialMentions: stock.socialMentions,
+                                  newsScore: stock.newsScore,
+                                  aiConfidence: stock.aiConfidence,
+                                  volatility: stock.volatility,
+                                });
+                              }
+                            }}
+                          >
                             <Eye className="w-3 h-3 mr-1" />
                             View
                           </Button>
-                          <Button size="sm" variant="outline" className="flex-1 text-xs">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1 text-xs"
+                            onClick={() => {
+                              addToWatchlist({
+                                symbol: stock.ticker,
+                                name: stock.companyName,
+                                currentPrice: stock.currentPrice,
+                                dailyChange: stock.change1D,
+                                dailyChangePercent: ((stock.change1D / stock.currentPrice) * 100),
+                                sentimentScore: stock.sentimentScore,
+                                type: 'stock',
+                              });
+                              toast.success(`Added ${stock.ticker} to watchlist`);
+                            }}
+                          >
                             <Bookmark className="w-3 h-3 mr-1" />
                             Watch
                           </Button>

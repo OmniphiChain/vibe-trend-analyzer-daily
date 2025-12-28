@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useMoodTheme } from "@/contexts/MoodThemeContext";
+import { useWatchlist } from "@/contexts/WatchlistContext";
+import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -49,6 +51,7 @@ interface StockData {
 
 interface BasicScreenerProps {
   className?: string;
+  onNavigate?: (section: string, userId?: string, stock?: any) => void;
 }
 
 const MOCK_STOCKS: StockData[] = [
@@ -276,8 +279,9 @@ const MOCK_STOCKS: StockData[] = [
 
 const SECTORS = ["All", "Technology", "Finance", "Healthcare", "Entertainment", "Consumer", "Automotive"];
 
-export const BasicScreener: React.FC<BasicScreenerProps> = ({ className }) => {
+export const BasicScreener: React.FC<BasicScreenerProps> = ({ className, onNavigate }) => {
   const { themeMode } = useMoodTheme();
+  const { addToWatchlist, isInWatchlist } = useWatchlist();
 
   const [filteredStocks, setFilteredStocks] = useState<StockData[]>(MOCK_STOCKS.slice(0, 20));
   const [searchQuery, setSearchQuery] = useState("");
@@ -672,11 +676,51 @@ export const BasicScreener: React.FC<BasicScreenerProps> = ({ className }) => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2 pt-1">
-                  <Button size="sm" variant="outline" className="flex-1 text-xs">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 text-xs"
+                    onClick={() => {
+                      if (onNavigate) {
+                        onNavigate("stock-detail", undefined, {
+                          symbol: stock.ticker,
+                          price: stock.currentPrice,
+                          change: stock.change1D,
+                          changePercent: ((stock.change1D / stock.currentPrice) * 100),
+                          marketCap: stock.marketCap,
+                          pe: 0,
+                          dividend: 0,
+                          rsi: 0,
+                          ma50: 0,
+                          ma200: 0,
+                          socialMentions: 0,
+                          newsScore: 0,
+                          aiConfidence: stock.sentimentScore,
+                          volatility: 0,
+                        });
+                      }
+                    }}
+                  >
                     <ArrowUpRight className="w-3 h-3 mr-1" />
                     View
                   </Button>
-                  <Button size="sm" variant="outline" className="flex-1 text-xs">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 text-xs"
+                    onClick={() => {
+                      addToWatchlist({
+                        symbol: stock.ticker,
+                        name: stock.companyName,
+                        currentPrice: stock.currentPrice,
+                        dailyChange: stock.change1D,
+                        dailyChangePercent: ((stock.change1D / stock.currentPrice) * 100),
+                        sentimentScore: stock.sentimentScore,
+                        type: 'stock',
+                      });
+                      toast.success(`Added ${stock.ticker} to watchlist`);
+                    }}
+                  >
                     <Bookmark className="w-3 h-3 mr-1" />
                     Watch
                   </Button>

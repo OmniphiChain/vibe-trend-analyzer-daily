@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { MoodThemeProvider, useMoodTheme } from "@/contexts/MoodThemeContext";
+import { WatchlistProvider } from "@/contexts/WatchlistContext";
 import { cn } from "@/lib/utils";
 
 import { Dashboard } from "@/components/Dashboard";
@@ -73,19 +74,24 @@ import { BuilderChatRoom } from "@/components/rooms/BuilderChatRoom";
 import { EnhancedSentimentFeed } from "@/components/EnhancedSentimentFeed";
 import AboutUsPage from "@/components/company/AboutUsPage";
 import BlogPage from "@/components/company/BlogPage";
+import { StockDetailPage } from "@/components/StockDetailPage";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const [activeSection, setActiveSection] = useState("futuristic-home");
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [selectedStock, setSelectedStock] = useState<any>(null);
   const { bodyGradient } = useMoodTheme();
 
-  // Enhanced navigation handler to support user profile navigation
-  const handleNavigation = (section: string, userId?: string) => {
+  // Enhanced navigation handler to support user profile navigation and stock detail
+  const handleNavigation = (section: string, userId?: string, stock?: any) => {
     setActiveSection(section);
     if (userId) {
       setCurrentUserId(userId);
+    }
+    if (stock) {
+      setSelectedStock(stock);
     }
   };
 
@@ -239,7 +245,7 @@ const AppContent = () => {
       case "market":
         return <Analytics />;
       case "screener":
-        return <StockScreener />;
+        return <StockScreener onNavigate={handleNavigation} />;
       case "crypto":
         return <PulseOfTheChain />;
       case "earnings":
@@ -252,6 +258,8 @@ const AppContent = () => {
         return <TradeJournalClassic />;
       case "sentiment-polls":
         return <CommunitySentimentPolls />;
+      case "stock-detail":
+        return <StockDetailPage stock={selectedStock} onBack={() => setActiveSection("screener")} />;
 
       default:
         return <FuturisticHomepage onNavigate={setActiveSection} />;
@@ -307,7 +315,9 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <MoodThemeProvider>
-          <AppContent />
+          <WatchlistProvider>
+            <AppContent />
+          </WatchlistProvider>
         </MoodThemeProvider>
       </AuthProvider>
     </QueryClientProvider>

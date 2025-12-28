@@ -510,9 +510,9 @@ export const AdvancedTradingChart: React.FC<AdvancedTradingChartProps> = ({ onNa
                         <button
                           key={speed}
                           className={cn(
-                            "px-3 py-1 rounded text-sm",
-                            replaySpeed === speed 
-                              ? "bg-cyan-400 text-black" 
+                            "px-3 py-1 rounded text-sm font-medium",
+                            replaySpeed === speed
+                              ? "bg-cyan-400 text-gray-900"
                               : "bg-gray-700 text-gray-300"
                           )}
                           onClick={() => setReplaySpeed(speed)}
@@ -671,8 +671,13 @@ export const AdvancedTradingChart: React.FC<AdvancedTradingChartProps> = ({ onNa
                     </Button>
                   </div>
 
-                  <Button 
-                    className={`w-full bg-[${currentColors.primary}] hover:bg-[${currentColors.secondary}] text-black`}
+                  <Button
+                    className="w-full text-gray-900 font-semibold"
+                    style={{
+                      backgroundColor: currentColors.primary,
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = currentColors.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = currentColors.primary}
                   >
                     Apply to Chart
                   </Button>

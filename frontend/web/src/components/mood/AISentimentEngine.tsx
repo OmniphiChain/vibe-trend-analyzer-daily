@@ -280,7 +280,7 @@ export const AISentimentEngine: React.FC<AISentimentEngineProps> = ({
                     <div className="text-xs font-medium text-card-foreground">Trending:</div>
                     <div className="flex flex-wrap gap-1">
                       {forumTrends.map((trend, i) => (
-                        <Badge key={i} className="bg-accent/10 text-accent border-accent/30 text-xs">
+                        <Badge key={i} className="bg-accent/30 text-white border-accent/50 text-xs font-semibold">
                           {trend}
                         </Badge>
                       ))}

@@ -11,9 +11,10 @@ import StrategyProfiler from "./StrategyProfiler";
 
 interface StockScreenerProps {
   className?: string;
+  onNavigate?: (section: string, userId?: string, stock?: any) => void;
 }
 
-export const StockScreener: React.FC<StockScreenerProps> = ({ className }) => {
+export const StockScreener: React.FC<StockScreenerProps> = ({ className, onNavigate }) => {
   const { themeMode } = useMoodTheme();
   const [activeTab, setActiveTab] = useState("basic");
 
@@ -127,11 +128,11 @@ export const StockScreener: React.FC<StockScreenerProps> = ({ className }) => {
           </TabsList>
 
           <TabsContent value="basic" className="mt-6">
-            <BasicScreener />
+            <BasicScreener onNavigate={onNavigate} />
           </TabsContent>
 
           <TabsContent value="advanced" className="mt-6">
-            <AdvancedStockScreener />
+            <AdvancedStockScreener onNavigate={onNavigate} />
           </TabsContent>
         </Tabs>
       </div>
