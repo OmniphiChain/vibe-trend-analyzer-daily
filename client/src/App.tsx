@@ -244,7 +244,7 @@ const AppContent = () => {
       case "market":
         return <Analytics />;
       case "screener":
-        return <StockScreener />;
+        return <StockScreener onNavigate={handleNavigation} />;
       case "crypto":
         return <PulseOfTheChain />;
       case "earnings":
