@@ -277,7 +277,7 @@ const MOCK_STOCKS: StockData[] = [
 
 const SECTORS = ["All", "Technology", "Finance", "Healthcare", "Entertainment", "Consumer", "Automotive"];
 
-export const BasicScreener: React.FC<BasicScreenerProps> = ({ className }) => {
+export const BasicScreener: React.FC<BasicScreenerProps> = ({ className, onNavigate }) => {
   const { themeMode } = useMoodTheme();
 
   const [filteredStocks, setFilteredStocks] = useState<StockData[]>(MOCK_STOCKS.slice(0, 20));
