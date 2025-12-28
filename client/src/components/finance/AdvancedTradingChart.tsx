@@ -510,9 +510,9 @@ export const AdvancedTradingChart: React.FC<AdvancedTradingChartProps> = ({ onNa
                         <button
                           key={speed}
                           className={cn(
-                            "px-3 py-1 rounded text-sm",
-                            replaySpeed === speed 
-                              ? "bg-cyan-400 text-black" 
+                            "px-3 py-1 rounded text-sm font-medium",
+                            replaySpeed === speed
+                              ? "bg-cyan-400 text-gray-900"
                               : "bg-gray-700 text-gray-300"
                           )}
                           onClick={() => setReplaySpeed(speed)}
