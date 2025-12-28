@@ -270,7 +270,7 @@ export const StockDetailPage: React.FC<StockDetailPageProps> = ({
                     Overall Confidence
                   </span>
                   <span className={cn('text-sm font-bold', overallSentiment.color)}>
-                    {stock.aiConfidence}%
+                    {stock.aiConfidence.toFixed(2)}%
                   </span>
                 </div>
                 <div className={cn(
