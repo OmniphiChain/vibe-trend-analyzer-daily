@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Search, TrendingUp, TrendingDown, BarChart3, Crown } from 'lucide-react';
 import { cn } from '../lib/utils';
 import StrategySwiper from './StrategySwiper';
+import UpgradeToProModal from './UpgradeToProModal';
 
 export const Analytics = () => {
   const [activeTab, setActiveTab] = useState("Analytics");
