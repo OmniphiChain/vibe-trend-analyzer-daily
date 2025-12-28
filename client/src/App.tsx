@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { MoodThemeProvider, useMoodTheme } from "@/contexts/MoodThemeContext";
+import { WatchlistProvider } from "@/contexts/WatchlistContext";
 import { cn } from "@/lib/utils";
 
 import { Dashboard } from "@/components/Dashboard";
