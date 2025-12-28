@@ -389,9 +389,9 @@ export const RoomDetailPanelFixed: React.FC<RoomDetailPanelFixedProps> = ({
                       {/* Rank Badge */}
                       {index < 3 && (
                         <div className={`absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shadow-lg ${
-                          index === 0 ? 'bg-yellow-400 text-black' :
-                          index === 1 ? 'bg-gray-300 text-black' :
-                          'bg-orange-400 text-black'
+                          index === 0 ? 'bg-yellow-400 text-gray-900' :
+                          index === 1 ? 'bg-gray-300 text-gray-900' :
+                          'bg-orange-400 text-gray-900'
                         }`}>
                           {index + 1}
                         </div>
