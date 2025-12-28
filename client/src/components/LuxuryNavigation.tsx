@@ -73,7 +73,7 @@ export const LuxuryNavigation: React.FC<LuxuryNavigationProps> = ({
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-black" />
+                  <TrendingUp className="w-6 h-6 text-gray-900 font-bold" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-light bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">
