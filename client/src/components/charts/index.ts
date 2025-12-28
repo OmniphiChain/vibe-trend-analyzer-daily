@@ -2,9 +2,11 @@
  * Charts Module - TradingView-style sentiment charts for NeomSense
  */
 
-// Main component
+// Main components
 export { SentimentChart } from './SentimentChart';
-export type { SentimentChartProps } from './chartTypes';
+export { AdvancedSentimentChart } from './AdvancedSentimentChart';
+export { ChartToolbar } from './ChartToolbar';
+export { EnhancedTooltip } from './EnhancedTooltip';
 
 // Types
 export type {
@@ -16,6 +18,8 @@ export type {
   ChartToggleState,
   CrosshairData,
   SeriesMarker,
+  AIPattern,
+  AdvancedChartOptions,
 } from './chartTypes';
 
 // Managers (for advanced usage)
