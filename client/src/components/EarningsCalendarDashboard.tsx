@@ -437,7 +437,7 @@ const EarningsCalendarDashboard: React.FC<EarningsCalendarDashboardProps> = ({
             earning.stockReaction > 0 ? 'text-green-400' : 'text-red-400'
           )}>
             {earning.stockReaction > 0 ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
-            {earning.stockReaction > 0 ? '+' : ''}{earning.stockReaction}%
+            {earning.stockReaction > 0 ? '+' : ''}{earning.stockReaction.toFixed(2)}%
           </div>
         </div>
       )}
