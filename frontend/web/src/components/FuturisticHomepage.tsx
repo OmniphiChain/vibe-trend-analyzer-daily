@@ -522,7 +522,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                       <CardTitle className="text-white flex items-center gap-2">
                         <ShieldAlert className="h-5 w-5 text-blue-400" aria-hidden="true" /> AI Risk Grade
                         <Badge className="ml-auto bg-blue-500/20 text-blue-300 border-blue-500/30">
-                          ${selectedFinanceStock}
+                          {selectedFinanceStock}
                         </Badge>
                       </CardTitle>
                     </CardHeader>
