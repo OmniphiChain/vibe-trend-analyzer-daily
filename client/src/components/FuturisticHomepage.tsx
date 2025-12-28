@@ -2935,7 +2935,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                             ? themeMode === 'light' ? "text-[#4CAF50]" : "text-emerald-400"
                             : themeMode === 'light' ? "text-[#F44336]" : "text-red-400"
                         )}>
-                          {item.change >= 0 ? '+' : ''}{item.change}%
+                          {item.change >= 0 ? '+' : ''}{typeof item.change === 'number' ? item.change.toFixed(2) : item.change}%
                         </span>
                       </div>
                     ))}
