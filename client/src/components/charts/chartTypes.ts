@@ -86,3 +86,50 @@ export interface SeriesMarker {
   shape: "circle" | "square" | "arrowUp" | "arrowDown";
   text?: string;
 }
+
+export interface AIPattern {
+  id: string;
+
+  // Machine-readable type
+  type:
+    | "ascending-triangle"
+    | "descending-triangle"
+    | "bullish-engulfing"
+    | "bearish-engulfing"
+    | "morning-star"
+    | "evening-star"
+    | "sentiment-shift"
+    | "volatility-expansion"
+    | "volatility-compression"
+    | "momentum-divergence"
+    | string;
+
+  // Human-readable label
+  label: string;
+
+  // Confidence 0-100
+  confidence: number;
+
+  // Time range
+  startTime: number; // unix seconds
+  endTime: number;
+
+  // Bias direction
+  bias: "bullish" | "bearish" | "neutral";
+
+  // Optional description
+  description?: string;
+
+  // Signal strength for visual prioritization
+  strength?: "weak" | "moderate" | "strong";
+}
+
+export interface AdvancedChartOptions {
+  showToolbar?: boolean;
+  showHistogram?: boolean;
+  showMomentum?: boolean;
+  showPatterns?: boolean;
+  height?: number;
+  enableCompare?: boolean;
+  enableReplay?: boolean;
+}
