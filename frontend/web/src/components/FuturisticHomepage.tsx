@@ -377,7 +377,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                     ? "bg-[rgba(58,122,254,0.1)] text-[#3A7AFE] border-[#3A7AFE]/30 font-semibold"
                     : "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white border-blue-500/30 font-semibold drop-shadow-md"
                   }>
-                    ${selectedFinanceStock}
+                    {selectedFinanceStock}
                   </Badge>
                 </div>
               </div>
