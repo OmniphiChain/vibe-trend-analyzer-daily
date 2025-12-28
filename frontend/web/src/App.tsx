@@ -245,7 +245,7 @@ const AppContent = () => {
       case "watchlist":
         return <Watchlist />;
       case "market":
-        return <Analytics />;
+        return <Analytics onNavigate={setActiveSection} />;
       case "screener":
         return <StockScreener onNavigate={handleNavigation} />;
       case "crypto":
