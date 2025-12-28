@@ -671,8 +671,8 @@ export const AdvancedTradingChart: React.FC<AdvancedTradingChartProps> = ({ onNa
                     </Button>
                   </div>
 
-                  <Button 
-                    className={`w-full bg-[${currentColors.primary}] hover:bg-[${currentColors.secondary}] text-black`}
+                  <Button
+                    className={`w-full bg-[${currentColors.primary}] hover:bg-[${currentColors.secondary}] text-gray-900 font-semibold`}
                   >
                     Apply to Chart
                   </Button>
