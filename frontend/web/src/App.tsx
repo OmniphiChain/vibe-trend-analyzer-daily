@@ -102,7 +102,7 @@ const AppContent = () => {
       case "sentiment":
         return <BuilderDemo />;
       case "analytics":
-        return <Analytics />;
+        return <Analytics onNavigate={setActiveSection} />;
       // Removed "history" route - HistoricalData component retained for potential reuse
             case "community":
         return <CommunityWithSubtabs onNavigateToProfile={(userId) => handleNavigation("trader-profile", userId)} />;
