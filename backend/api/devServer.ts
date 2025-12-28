@@ -44,8 +44,12 @@ export async function setupVite(app: Express, server: Server) {
     cors: true,
   };
 
+  // Adjust the config root to be relative to this file's location
+  const frontendWebRoot = path.resolve(import.meta.dirname, "..", "..", "frontend", "web");
+
   const vite = await createViteServer({
     ...viteConfig,
+    root: frontendWebRoot,
     configFile: false,
     customLogger: {
       ...viteLogger,
