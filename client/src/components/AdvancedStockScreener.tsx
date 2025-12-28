@@ -986,7 +986,23 @@ export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ cl
                             <Eye className="w-3 h-3 mr-1" />
                             View
                           </Button>
-                          <Button size="sm" variant="outline" className="flex-1 text-xs">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1 text-xs"
+                            onClick={() => {
+                              addToWatchlist({
+                                symbol: stock.ticker,
+                                name: stock.companyName,
+                                currentPrice: stock.currentPrice,
+                                dailyChange: stock.change1D,
+                                dailyChangePercent: ((stock.change1D / stock.currentPrice) * 100),
+                                sentimentScore: stock.sentimentScore,
+                                type: 'stock',
+                              });
+                              toast.success(`Added ${stock.ticker} to watchlist`);
+                            }}
+                          >
                             <Bookmark className="w-3 h-3 mr-1" />
                             Watch
                           </Button>
