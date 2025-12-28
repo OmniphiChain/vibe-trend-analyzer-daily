@@ -9,7 +9,11 @@ import { cn } from '../lib/utils';
 import StrategySwiper from './StrategySwiper';
 import UpgradeToProModal from './UpgradeToProModal';
 
-export const Analytics = () => {
+interface AnalyticsProps {
+  onNavigate?: (section: string) => void;
+}
+
+export const Analytics: React.FC<AnalyticsProps> = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState("Analytics");
   const [searchQuery, setSearchQuery] = useState("");
   const [showProfiler, setShowProfiler] = useState(false);
