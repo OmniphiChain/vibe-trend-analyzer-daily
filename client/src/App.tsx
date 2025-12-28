@@ -80,13 +80,17 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const [activeSection, setActiveSection] = useState("futuristic-home");
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [selectedStock, setSelectedStock] = useState<any>(null);
   const { bodyGradient } = useMoodTheme();
 
-  // Enhanced navigation handler to support user profile navigation
-  const handleNavigation = (section: string, userId?: string) => {
+  // Enhanced navigation handler to support user profile navigation and stock detail
+  const handleNavigation = (section: string, userId?: string, stock?: any) => {
     setActiveSection(section);
     if (userId) {
       setCurrentUserId(userId);
+    }
+    if (stock) {
+      setSelectedStock(stock);
     }
   };
 
