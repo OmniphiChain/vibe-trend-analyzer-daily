@@ -263,6 +263,12 @@ const AppContent = () => {
       case "stock-detail":
         return <StockDetailPage stock={selectedStock} onBack={() => setActiveSection("screener")} />;
 
+      case "upgrade":
+        return <UpgradePage onNavigate={setActiveSection} onBack={() => setActiveSection("analytics")} />;
+
+      case "trial-activated":
+        return <TrialActivatedPage onNavigate={setActiveSection} onBack={() => setActiveSection("analytics")} />;
+
       default:
         return <FuturisticHomepage onNavigate={setActiveSection} />;
     }
