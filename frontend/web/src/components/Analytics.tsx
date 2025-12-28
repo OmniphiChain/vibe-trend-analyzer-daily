@@ -1758,6 +1758,14 @@ export const Analytics = () => {
           </div>
         </div>
       )}
+
+      {/* Upgrade to Pro Modal */}
+      <UpgradeToProModal
+        open={showUpgradeModal}
+        onOpenChange={setShowUpgradeModal}
+        onUpgrade={handleUpgrade}
+        onStartTrial={handleStartTrial}
+      />
     </div>
   );
 };
