@@ -75,6 +75,8 @@ import { EnhancedSentimentFeed } from "@/components/EnhancedSentimentFeed";
 import AboutUsPage from "@/components/company/AboutUsPage";
 import BlogPage from "@/components/company/BlogPage";
 import { StockDetailPage } from "@/components/StockDetailPage";
+import UpgradePage from "@/components/UpgradePage";
+import TrialActivatedPage from "@/components/TrialActivatedPage";
 
 const queryClient = new QueryClient();
 
@@ -100,7 +102,7 @@ const AppContent = () => {
       case "sentiment":
         return <BuilderDemo />;
       case "analytics":
-        return <Analytics />;
+        return <Analytics onNavigate={setActiveSection} />;
       // Removed "history" route - HistoricalData component retained for potential reuse
             case "community":
         return <CommunityWithSubtabs onNavigateToProfile={(userId) => handleNavigation("trader-profile", userId)} />;
@@ -195,7 +197,7 @@ const AppContent = () => {
       case "market-mood":
         return <MarketMoodPage />;
       case "news-feed":
-        return <Analytics />;
+        return <Analytics onNavigate={setActiveSection} />;
       case "smart-news-feed":
         return <SmartNewsFeedPage />;
       case "trader-profile":
@@ -243,7 +245,7 @@ const AppContent = () => {
       case "watchlist":
         return <Watchlist />;
       case "market":
-        return <Analytics />;
+        return <Analytics onNavigate={setActiveSection} />;
       case "screener":
         return <StockScreener onNavigate={handleNavigation} />;
       case "crypto":
@@ -260,6 +262,12 @@ const AppContent = () => {
         return <CommunitySentimentPolls />;
       case "stock-detail":
         return <StockDetailPage stock={selectedStock} onBack={() => setActiveSection("screener")} />;
+
+      case "upgrade":
+        return <UpgradePage onNavigate={setActiveSection} onBack={() => setActiveSection("analytics")} />;
+
+      case "trial-activated":
+        return <TrialActivatedPage onNavigate={setActiveSection} onBack={() => setActiveSection("analytics")} />;
 
       default:
         return <FuturisticHomepage onNavigate={setActiveSection} />;

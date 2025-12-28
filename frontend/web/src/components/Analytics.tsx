@@ -7,8 +7,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Search, TrendingUp, TrendingDown, BarChart3, Crown } from 'lucide-react';
 import { cn } from '../lib/utils';
 import StrategySwiper from './StrategySwiper';
+import UpgradeToProModal from './UpgradeToProModal';
 
-export const Analytics = () => {
+interface AnalyticsProps {
+  onNavigate?: (section: string) => void;
+}
+
+export const Analytics: React.FC<AnalyticsProps> = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState("Analytics");
   const [searchQuery, setSearchQuery] = useState("");
   const [showProfiler, setShowProfiler] = useState(false);
@@ -32,6 +37,7 @@ export const Analytics = () => {
   const [showLoadDialog, setShowLoadDialog] = useState(false);
   const [newTemplateName, setNewTemplateName] = useState("");
   const [loadTemplateTab, setLoadTemplateTab] = useState("All Templates");
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   // Mock stock data for the screener
   const stockData = [
@@ -165,6 +171,22 @@ export const Analytics = () => {
     setSelectedSector("All Sectors");
     setSelectedVolume("All Volumes");
     setSelectedSocialBuzz("All Levels");
+  };
+
+  const handleUpgrade = () => {
+    console.log("User clicked Upgrade Now");
+    setShowUpgradeModal(false);
+    if (onNavigate) {
+      onNavigate('upgrade');
+    }
+  };
+
+  const handleStartTrial = () => {
+    console.log("User started 7-day trial");
+    setShowUpgradeModal(false);
+    if (onNavigate) {
+      onNavigate('trial-activated');
+    }
   };
 
   return (
@@ -762,7 +784,7 @@ export const Analytics = () => {
                           <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs">🔙</Badge>
                           <span className="text-gray-300 text-sm">Sentiment Backtesting</span>
                         </div>
-                        <Button className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 text-black font-semibold mt-3">
+                        <Button onClick={() => setShowUpgradeModal(true)} className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 text-black font-semibold mt-3">
                           Upgrade to Pro
                         </Button>
                       </div>
@@ -1741,6 +1763,14 @@ export const Analytics = () => {
           </div>
         </div>
       )}
+
+      {/* Upgrade to Pro Modal */}
+      <UpgradeToProModal
+        open={showUpgradeModal}
+        onOpenChange={setShowUpgradeModal}
+        onUpgrade={handleUpgrade}
+        onStartTrial={handleStartTrial}
+      />
     </div>
   );
 };
