@@ -248,6 +248,7 @@ const SECTORS = ["All", "Technology", "Finance", "Healthcare", "Entertainment", 
 
 export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ className, onNavigate }) => {
   const { themeMode } = useMoodTheme();
+  const { addToWatchlist, isInWatchlist } = useWatchlist();
 
   // View states
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
