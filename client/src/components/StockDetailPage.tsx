@@ -258,7 +258,7 @@ export const StockDetailPage: React.FC<StockDetailPageProps> = ({
                 AI Sentiment Analysis
               </CardTitle>
               <Badge className={cn(overallSentiment.bgColor, overallSentiment.color, 'border-0')}>
-                {overallSentiment.emoji} {overallSentiment.label} ({stock.aiConfidence}%)
+                {overallSentiment.emoji} {overallSentiment.label} ({stock.aiConfidence.toFixed(2)}%)
               </Badge>
             </div>
           </CardHeader>
