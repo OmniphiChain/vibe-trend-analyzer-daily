@@ -1,12 +1,16 @@
 import express, { type Express } from "express";
 import fs from "fs";
 import path from "path";
-import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
-import viteConfig from "../vite.config";
+import viteConfig from "../../vite.config";
 import { nanoid } from "nanoid";
 
-const viteLogger = createLogger();
+const viteLogger = {
+  warn: (msg: string) => console.warn(msg),
+  info: (msg: string) => console.info(msg),
+  error: (msg: string) => console.error(msg),
+  debug: (msg: string) => console.debug(msg),
+};
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -20,6 +24,11 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
+  // Dynamically import vite to avoid conflicts with local vite.ts file
+  // Using eval to force Node to resolve from node_modules instead of the local vite.ts
+  const viteImport = eval('import("vite")');
+  const { createServer: createViteServer } = await viteImport;
+
   const serverOptions = {
     middlewareMode: true,
     hmr: {
@@ -35,13 +44,17 @@ export async function setupVite(app: Express, server: Server) {
     cors: true,
   };
 
+  // Adjust the config root to be relative to this file's location
+  const frontendWebRoot = path.resolve(import.meta.dirname, "..", "..", "frontend", "web");
+
   const vite = await createViteServer({
     ...viteConfig,
+    root: frontendWebRoot,
     configFile: false,
     customLogger: {
       ...viteLogger,
-      error: (msg, options) => {
-        viteLogger.error(msg, options);
+      error: (msg: string, options?: any) => {
+        viteLogger.error(msg);
         // Don't exit on every error - let the app continue
       },
     },
@@ -57,7 +70,9 @@ export async function setupVite(app: Express, server: Server) {
       const clientTemplate = path.resolve(
         import.meta.dirname,
         "..",
-        "client",
+        "..",
+        "frontend",
+        "web",
         "index.html",
       );
 

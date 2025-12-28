@@ -149,7 +149,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
     { topic: 'AI Revolution', label: 'Hype', mentions: '4,512', sentiment: 'bullish', icon: '🤖' },
     { topic: 'Fed Meeting', label: 'Neutral', mentions: '3,674', sentiment: 'neutral', icon: '🏛️' },
     { topic: '$BTC', label: 'Hype', mentions: '5,291', sentiment: 'bullish', icon: '₿' },
-    { topic: 'Inflation Data', label: 'Neutral', mentions: '2,183', sentiment: 'neutral', icon: '���' }
+    { topic: 'Inflation Data', label: 'Neutral', mentions: '2,183', sentiment: 'neutral', icon: '📊' }
   ]);
 
   const [moodTrendData] = useState([
@@ -377,7 +377,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                     ? "bg-[rgba(58,122,254,0.1)] text-[#3A7AFE] border-[#3A7AFE]/30 font-semibold"
                     : "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white border-blue-500/30 font-semibold drop-shadow-md"
                   }>
-                    ${selectedFinanceStock}
+                    {selectedFinanceStock}
                   </Badge>
                 </div>
               </div>
@@ -461,7 +461,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                             ? 'bg-[#E8F8F4] text-[#22AB94] border-[#22AB94]/30'
                             : 'bg-blue-500/20 text-blue-300 border-blue-500/30'
                         }`}>
-                          ${selectedFinanceStock}
+                          {selectedFinanceStock}
                         </Badge>
                       </CardTitle>
                     </CardHeader>
@@ -522,7 +522,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                       <CardTitle className="text-white flex items-center gap-2">
                         <ShieldAlert className="h-5 w-5 text-blue-400" aria-hidden="true" /> AI Risk Grade
                         <Badge className="ml-auto bg-blue-500/20 text-blue-300 border-blue-500/30">
-                          ${selectedFinanceStock}
+                          {selectedFinanceStock}
                         </Badge>
                       </CardTitle>
                     </CardHeader>
@@ -631,7 +631,7 @@ export const FuturisticHomepage: React.FC<FuturisticHomepageProps> = ({ onNaviga
                       <CardTitle className="text-white flex items-center gap-2">
                         🚨 Live Risk Alerts
                         <Badge className="ml-auto bg-blue-500/20 text-blue-300 border-blue-500/30">
-                          ${selectedFinanceStock}
+                          {selectedFinanceStock}
                         </Badge>
                       </CardTitle>
                     </CardHeader>

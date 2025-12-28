@@ -1,29 +1,25 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-export default defineConfig({
-  plugins: [
-    react(),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-        ]
-      : []),
-  ],
+const plugins = [
+  react(),
+  runtimeErrorOverlay(),
+];
+
+// Note: Cartographer plugin loading is handled at request time in the backend
+// rather than at config time to avoid import issues
+
+const config = {
+  plugins,
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@": path.resolve(import.meta.dirname, "frontend", "web", "src"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
   },
-  root: path.resolve(import.meta.dirname, "client"),
+  root: path.resolve(import.meta.dirname, "frontend", "web"),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
@@ -40,4 +36,6 @@ export default defineConfig({
     cors: true,
     strictPort: true,
   },
-});
+};
+
+export default config;
