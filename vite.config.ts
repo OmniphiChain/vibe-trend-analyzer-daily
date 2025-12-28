@@ -1,7 +1,9 @@
-import { defineConfig } from "vite";
+import viteModule from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+
+const { defineConfig } = viteModule;
 
 export default defineConfig(async () => {
   const plugins = [
