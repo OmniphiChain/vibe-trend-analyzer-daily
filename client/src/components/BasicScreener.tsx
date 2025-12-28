@@ -281,6 +281,7 @@ const SECTORS = ["All", "Technology", "Finance", "Healthcare", "Entertainment", 
 
 export const BasicScreener: React.FC<BasicScreenerProps> = ({ className, onNavigate }) => {
   const { themeMode } = useMoodTheme();
+  const { addToWatchlist, isInWatchlist } = useWatchlist();
 
   const [filteredStocks, setFilteredStocks] = useState<StockData[]>(MOCK_STOCKS.slice(0, 20));
   const [searchQuery, setSearchQuery] = useState("");
