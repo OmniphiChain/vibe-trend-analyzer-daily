@@ -340,7 +340,7 @@ export const StockDetailPage: React.FC<StockDetailPageProps> = ({
                           </h3>
                         </div>
                         <Badge className={cn(sentiment.bgColor, sentiment.color, 'border-0')}>
-                          {source.score}%
+                          {source.score.toFixed(2)}%
                         </Badge>
                       </div>
                       <p className={cn('text-xs', themeMode === 'light' ? 'text-gray-600' : 'text-slate-400')}>
