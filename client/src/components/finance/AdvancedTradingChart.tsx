@@ -672,7 +672,12 @@ export const AdvancedTradingChart: React.FC<AdvancedTradingChartProps> = ({ onNa
                   </div>
 
                   <Button
-                    className={`w-full bg-[${currentColors.primary}] hover:bg-[${currentColors.secondary}] text-gray-900 font-semibold`}
+                    className="w-full text-gray-900 font-semibold"
+                    style={{
+                      backgroundColor: currentColors.primary,
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = currentColors.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = currentColors.primary}
                   >
                     Apply to Chart
                   </Button>
