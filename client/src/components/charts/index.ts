@@ -52,3 +52,16 @@ export {
   SentimentProfiles,
   streamMockChartData,
 } from './mockChartData';
+
+// Advanced chart mock data
+export {
+  generateAdvancedChartData,
+  generateAIPatterns,
+  generateAdvancedChartResponse,
+  generateMultiAssetChartData,
+  getTrendingPatterns,
+} from './mockAdvancedChartData';
+
+// Demo pages
+export { SentimentChartDemo } from './SentimentChartDemo';
+export { AdvancedChartDemo } from './AdvancedChartDemo';
