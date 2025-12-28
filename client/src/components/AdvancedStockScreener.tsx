@@ -111,6 +111,7 @@ interface StockData {
 
 interface AdvancedStockScreenerProps {
   className?: string;
+  onNavigate?: (section: string, userId?: string, stock?: any) => void;
 }
 
 const MOCK_STOCKS: StockData[] = [
