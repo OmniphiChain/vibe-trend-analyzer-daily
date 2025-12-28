@@ -236,7 +236,7 @@ export const UnifiedRooms: React.FC = () => {
     switch (label) {
       case 'Bullish': return 'bg-[var(--success)] text-white';
       case 'Bearish': return 'bg-[var(--danger)] text-white';
-      case 'Neutral': return 'bg-[var(--warn)] text-black';
+      case 'Neutral': return 'bg-[var(--warn)] text-gray-900 font-medium';
       default: return 'bg-[var(--muted)] text-white';
     }
   };
