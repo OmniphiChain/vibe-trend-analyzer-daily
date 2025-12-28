@@ -942,14 +942,14 @@ export const Analytics = () => {
                               stock.change >= 0 ? "text-green-400" : "text-red-400"
                             )}>
                               {stock.change >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                              {stock.change >= 0 ? '+' : ''}{stock.change}%
+                              {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)}%
                             </div>
                           </div>
 
                           <div className="space-y-1 text-xs">
                             <div className="flex justify-between">
                               <span className="text-gray-400">Sentiment Score</span>
-                              <span className={getSentimentColor(stock.sentiment)}>{stock.sentiment}%</span>
+                              <span className={getSentimentColor(stock.sentiment)}>{stock.sentiment.toFixed(2)}%</span>
                             </div>
                             <div className="flex justify-between">
                               <span className="text-gray-400">Market Cap</span>
@@ -1401,7 +1401,7 @@ export const Analytics = () => {
                                       stock.change >= 0 ? "text-green-400" : "text-red-400"
                                     )}>
                                       {stock.change >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                                      {stock.change >= 0 ? '+' : ''}{stock.change}%
+                                      {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)}%
                                     </div>
                                   </div>
 
