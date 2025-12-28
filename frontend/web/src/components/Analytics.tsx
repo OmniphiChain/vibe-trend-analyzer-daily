@@ -169,6 +169,21 @@ export const Analytics = () => {
     setSelectedSocialBuzz("All Levels");
   };
 
+  const handleUpgrade = () => {
+    // Handle upgrade action - can be connected to payment gateway
+    console.log("User clicked Upgrade Now");
+    setShowUpgradeModal(false);
+    // In a real app, this would redirect to a checkout page or payment processor
+    alert("Redirecting to upgrade page...");
+  };
+
+  const handleStartTrial = () => {
+    // Handle trial action
+    console.log("User started 7-day trial");
+    setShowUpgradeModal(false);
+    alert("Your 7-day trial has been activated! You now have full access to Pro features.");
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
       {/* Ambient Background Effects */}
