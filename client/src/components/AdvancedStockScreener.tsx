@@ -931,7 +931,7 @@ export const AdvancedStockScreener: React.FC<AdvancedStockScreenerProps> = ({ cl
                               <TooltipTrigger asChild>
                                 <div className={cn("flex items-center gap-1 cursor-help", getAIConfidenceLevel(stock.aiConfidence).color)}>
                                   <Zap className="w-3 h-3" />
-                                  AI {stock.aiConfidence}%
+                                  AI {stock.aiConfidence.toFixed(2)}%
                                 </div>
                               </TooltipTrigger>
                               <TooltipContent>
