@@ -24,7 +24,17 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
-  const { createServer: createViteServer } = await import("vite");
+  const viteModule = await import("vite");
+  console.log("Available vite exports:", Object.keys(viteModule));
+
+  // Try different possible names for the server creation function
+  let createViteServer = viteModule.createServer;
+  if (!createViteServer) createViteServer = viteModule.default?.createServer;
+  if (!createViteServer) createViteServer = (viteModule as any).createViteDevServer;
+
+  if (!createViteServer) {
+    throw new Error(`createServer not found. Available exports: ${Object.keys(viteModule).join(", ")}`);
+  }
 
   const serverOptions = {
     middlewareMode: true,
