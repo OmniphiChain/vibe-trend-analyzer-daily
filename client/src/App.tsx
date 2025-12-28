@@ -257,6 +257,8 @@ const AppContent = () => {
         return <TradeJournalClassic />;
       case "sentiment-polls":
         return <CommunitySentimentPolls />;
+      case "stock-detail":
+        return <StockDetailPage stock={selectedStock} onBack={() => setActiveSection("screener")} />;
 
       default:
         return <FuturisticHomepage onNavigate={setActiveSection} />;
