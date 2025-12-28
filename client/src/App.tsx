@@ -315,7 +315,9 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <MoodThemeProvider>
-          <AppContent />
+          <WatchlistProvider>
+            <AppContent />
+          </WatchlistProvider>
         </MoodThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
