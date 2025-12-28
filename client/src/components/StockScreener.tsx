@@ -128,7 +128,7 @@ export const StockScreener: React.FC<StockScreenerProps> = ({ className, onNavig
           </TabsList>
 
           <TabsContent value="basic" className="mt-6">
-            <BasicScreener />
+            <BasicScreener onNavigate={onNavigate} />
           </TabsContent>
 
           <TabsContent value="advanced" className="mt-6">
