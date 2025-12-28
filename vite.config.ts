@@ -1,11 +1,10 @@
-import viteModule from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-const { defineConfig } = viteModule;
+export default async () => {
+  const { defineConfig } = await import("vite");
 
-export default defineConfig(async () => {
   const plugins = [
     react(),
     runtimeErrorOverlay(),
@@ -20,7 +19,7 @@ export default defineConfig(async () => {
     }
   }
 
-  return {
+  return defineConfig({
     plugins,
     resolve: {
       alias: {
@@ -46,5 +45,5 @@ export default defineConfig(async () => {
       cors: true,
       strictPort: true,
     },
-  };
-});
+  });
+};
