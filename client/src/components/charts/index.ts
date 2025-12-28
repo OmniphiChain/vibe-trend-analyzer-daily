@@ -28,6 +28,8 @@ export { SentimentOverlayManager } from './SentimentOverlay';
 export { ConfidenceBandManager } from './ConfidenceBand';
 export { EventMarkersManager } from './EventMarkers';
 export { MomentumPanelManager } from './MomentumPanel';
+export { HistogramSeriesManager } from './HistogramSeries';
+export { PatternOverlayManager } from './PatternOverlay';
 
 // Theme
 export {
