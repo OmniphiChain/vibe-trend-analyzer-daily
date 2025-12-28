@@ -174,18 +174,19 @@ export const Analytics: React.FC<AnalyticsProps> = ({ onNavigate }) => {
   };
 
   const handleUpgrade = () => {
-    // Handle upgrade action - can be connected to payment gateway
     console.log("User clicked Upgrade Now");
     setShowUpgradeModal(false);
-    // In a real app, this would redirect to a checkout page or payment processor
-    alert("Redirecting to upgrade page...");
+    if (onNavigate) {
+      onNavigate('upgrade');
+    }
   };
 
   const handleStartTrial = () => {
-    // Handle trial action
     console.log("User started 7-day trial");
     setShowUpgradeModal(false);
-    alert("Your 7-day trial has been activated! You now have full access to Pro features.");
+    if (onNavigate) {
+      onNavigate('trial-activated');
+    }
   };
 
   return (
