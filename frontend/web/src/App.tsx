@@ -75,6 +75,8 @@ import { EnhancedSentimentFeed } from "@/components/EnhancedSentimentFeed";
 import AboutUsPage from "@/components/company/AboutUsPage";
 import BlogPage from "@/components/company/BlogPage";
 import { StockDetailPage } from "@/components/StockDetailPage";
+import UpgradePage from "@/components/UpgradePage";
+import TrialActivatedPage from "@/components/TrialActivatedPage";
 
 const queryClient = new QueryClient();
 
