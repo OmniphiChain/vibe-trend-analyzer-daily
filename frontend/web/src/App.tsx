@@ -197,7 +197,7 @@ const AppContent = () => {
       case "market-mood":
         return <MarketMoodPage />;
       case "news-feed":
-        return <Analytics />;
+        return <Analytics onNavigate={setActiveSection} />;
       case "smart-news-feed":
         return <SmartNewsFeedPage />;
       case "trader-profile":
