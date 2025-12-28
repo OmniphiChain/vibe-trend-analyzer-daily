@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useMoodTheme } from "@/contexts/MoodThemeContext";
+import { useWatchlist } from "@/contexts/WatchlistContext";
+import { toast } from "sonner";
 import {
   getSentimentSignal,
   getRSISignal,
