@@ -1,0 +1,87 @@
+/* ===== DARK MODE TEXT CONTRAST FIXES ===== */
+/* Fix contrast issues in dark mode without affecting light mode */
+
+/* Dark Mode - All card text must be light */
+.dark .rounded-lg.border.bg-card,
+.dark [class*="bg-card"] {
+  --text-color: white;
+}
+
+/* Dark Mode - Text color overrides for contrast */
+.dark .text-foreground {
+  color: hsl(210 40% 98%) !important;
+}
+
+.dark .text-gray-900 {
+  color: hsl(210 40% 98%) !important;
+}
+
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: hsl(210 40% 98%) !important;
+}
+
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-gray-600 {
+  color: hsl(210 40% 98%) !important;
+}
+
+/* Dark Mode - Secondary text (muted-foreground) needs higher contrast */
+.dark .text-muted-foreground {
+  color: hsl(210 40% 90%) !important;
+}
+
+/* Dark Mode - Card title text */
+.dark .rounded-lg.border.bg-card h1,
+.dark .rounded-lg.border.bg-card h2,
+.dark .rounded-lg.border.bg-card h3,
+.dark .rounded-lg.border.bg-card h4,
+.dark .rounded-lg.border.bg-card h5,
+.dark .rounded-lg.border.bg-card h6 {
+  color: white !important;
+}
+
+/* Dark Mode - Card body text */
+.dark .rounded-lg.border.bg-card p,
+.dark .rounded-lg.border.bg-card span,
+.dark .rounded-lg.border.bg-card div {
+  color: inherit;
+}
+
+/* Override specific dark text colors that appear on dark backgrounds */
+.dark .text-\[#1A1A1A\],
+.dark .text-\[#1E1E1E\],
+.dark .text-\[#333333\],
+.dark .text-\[#444444\],
+.dark .text-\[#555555\] {
+  color: white !important;
+}
+
+/* Fix muted foreground specifically in cards */
+.dark .bg-card .text-muted-foreground,
+.dark .bg-card [class*="text-muted"] {
+  color: hsl(210 40% 90%) !important;
+}
+
+/* Dark Mode - Badge text that might be on dark background */
+.dark .rounded-full .text-muted-foreground {
+  color: hsl(210 40% 90%) !important;
+}
+
+/* Dark Mode - Tab content text */
+.dark [role="tabpanel"] .text-foreground,
+.dark [role="tabpanel"] .text-gray-900 {
+  color: white !important;
+}
+
+/* Fix grid and flex containers with text */
+.dark .grid.grid-cols-2 .font-semibold:not(.text-green-500):not(.text-blue-500):not(.text-yellow-500) {
+  color: white !important;
+}
+
+/* Ensure numbers and stats are always readable */
+.dark .font-semibold:not([class*="text-green"]):not([class*="text-blue"]):not([class*="text-red"]):not([class*="text-yellow"]):not([class*="text-orange"]):not([class*="text-purple"]) {
+  color: white !important;
+}
