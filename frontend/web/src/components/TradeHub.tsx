@@ -224,22 +224,22 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                         <AvatarImage src="/placeholder.svg" />
                         <AvatarFallback>{item.instructor[0]}</AvatarFallback>
                       </Avatar>
-                      <span className="text-sm text-muted-foreground dark:text-white font-medium">{item.instructor}</span>
+                      <span className="text-sm text-gray-600 dark:text-white font-medium">{item.instructor}</span>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium text-foreground dark:text-white">{item.rating}</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">{item.rating}</span>
                       </div>
-                      <span className="text-sm text-muted-foreground dark:text-white font-medium">
+                      <span className="text-sm text-gray-600 dark:text-white font-medium">
                         {item.type === "course" ? `${item.students} students` : `${item.subscribers} subscribers`}
                       </span>
                     </div>
-                    
+
                     {item.type === "course" && item.duration && (
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-white font-medium">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-white font-medium">
                         <Play className="h-3 w-3" />
                         {item.duration}
                       </div>
