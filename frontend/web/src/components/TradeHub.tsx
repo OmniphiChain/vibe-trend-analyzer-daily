@@ -263,8 +263,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Featured Tab */}
           <TabsContent value="featured" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2 text-foreground dark:text-white">Featured This Week</h2>
-              <p className="text-muted-foreground dark:text-white font-medium">Hand-picked content from our top-rated educators</p>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Featured This Week</h2>
+              <p className="text-gray-600 dark:text-white font-medium">Hand-picked content from our top-rated educators</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
