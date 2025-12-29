@@ -207,7 +207,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                 <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardHeader className="space-y-4">
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg line-clamp-2">{item.title}</CardTitle>
+                      <CardTitle className="text-lg line-clamp-2 text-foreground dark:text-white">{item.title}</CardTitle>
                       {item.badge && (
                         <Badge
                           variant={item.badge === "BESTSELLER" ? "default" : "secondary"}
@@ -267,7 +267,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Featured Tab */}
           <TabsContent value="featured" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2">Featured This Week</h2>
+              <h2 className="text-2xl font-bold mb-2 text-foreground dark:text-white">Featured This Week</h2>
               <p className="text-muted-foreground dark:text-white font-medium">Hand-picked content from our top-rated educators</p>
             </div>
             
@@ -292,7 +292,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                         >
                           {item.badge}
                         </Badge>
-                        <h3 className="text-xl font-semibold">{item.title}</h3>
+                        <h3 className="text-xl font-semibold text-foreground dark:text-white">{item.title}</h3>
                         <p className="text-sm text-muted-foreground dark:text-white font-medium">by {item.instructor}</p>
                         <div className="flex items-center gap-4 pt-2">
                           <div className="flex items-center gap-1">
@@ -312,7 +312,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Trending Tab */}
           <TabsContent value="trending" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2">🔥 Trending Now</h2>
+              <h2 className="text-2xl font-bold mb-2 text-foreground dark:text-white">🔥 Trending Now</h2>
               <p className="text-muted-foreground dark:text-white font-medium">Most popular content based on community engagement</p>
             </div>
             
@@ -323,7 +323,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                     {index + 1}
                   </div>
                   <CardContent className="p-6 pt-8">
-                    <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-foreground dark:text-white">{item.title}</h3>
                     <p className="text-sm text-muted-foreground dark:text-white font-medium mb-4">by {item.instructor}</p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1">
@@ -341,7 +341,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Top Creators Tab */}
           <TabsContent value="creators" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2">👥 Top Creators</h2>
+              <h2 className="text-2xl font-bold mb-2 text-foreground dark:text-white">👥 Top Creators</h2>
               <p className="text-muted-foreground dark:text-white font-medium">Verified traders with the highest credibility scores</p>
             </div>
             
@@ -354,7 +354,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                       <AvatarFallback className="text-lg">{trader.name[0]}</AvatarFallback>
                     </Avatar>
                     
-                    <h3 className="text-xl font-semibold mb-2">{trader.name}</h3>
+                    <h3 className="text-xl font-semibold mb-2 text-foreground dark:text-white">{trader.name}</h3>
                     <p className="text-muted-foreground dark:text-white font-medium mb-3">{trader.expertise}</p>
                     
                     <div className="flex items-center justify-center gap-2 mb-3">
