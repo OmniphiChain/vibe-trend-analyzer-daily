@@ -48,7 +48,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
   const [selectedItem, setSelectedItem] = useState<MarketplaceItem | null>(null);
 
   // Mock data for featured traders
-  const featuredTraders = [
+  const featuredTraders: TraderProfile[] = [
     {
       id: 1,
       name: "Sarah Chen",
@@ -91,7 +91,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
   ];
 
   // Mock data for trending content
-  const trendingContent = [
+  const trendingContent: MarketplaceItem[] = [
     {
       id: 1,
       title: "Advanced Options Strategies for Bull Markets",
@@ -126,6 +126,11 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
       badge: "NEW"
     }
   ];
+
+  // Get trader by name
+  const getTraderByName = (name: string): TraderProfile => {
+    return featuredTraders.find(t => t.name === name) || featuredTraders[0];
+  };
 
   const categories = [
     { id: "all", label: "All Categories", icon: TrendingUp },
