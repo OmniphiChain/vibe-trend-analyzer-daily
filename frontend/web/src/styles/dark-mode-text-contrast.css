@@ -1,87 +1,73 @@
 /* ===== DARK MODE TEXT CONTRAST FIXES ===== */
 /* Fix contrast issues in dark mode without affecting light mode */
+/* These fixes specifically target Tailwind cards with bg-card class */
 
-/* Dark Mode - All card text must be light */
-.dark .rounded-lg.border.bg-card,
-.dark [class*="bg-card"] {
-  --text-color: white;
+/* Dark Mode - Card component text colors */
+.dark .bg-card,
+.dark .rounded-lg.border.bg-card {
+  color: white !important;
 }
 
-/* Dark Mode - Text color overrides for contrast */
-.dark .text-foreground {
-  color: hsl(210 40% 98%) !important;
+/* Dark Mode - Ensure text-foreground has proper contrast on cards */
+.dark .bg-card .text-foreground,
+.dark .bg-card h1,
+.dark .bg-card h2,
+.dark .bg-card h3,
+.dark .bg-card h4,
+.dark .bg-card h5,
+.dark .bg-card h6,
+.dark .bg-card p,
+.dark .bg-card span,
+.dark .bg-card [class*="text-"] {
+  color: white !important;
 }
 
-.dark .text-gray-900 {
-  color: hsl(210 40% 98%) !important;
+/* Exception: Let colored text keep their colors */
+.dark .bg-card .text-green-500,
+.dark .bg-card .text-blue-500,
+.dark .bg-card .text-red-500,
+.dark .bg-card .text-yellow-400,
+.dark .bg-card .text-yellow-500,
+.dark .bg-card .text-orange-400,
+.dark .bg-card .text-orange-500,
+.dark .bg-card .text-purple-400,
+.dark .bg-card .text-purple-500,
+.dark .bg-card .text-pink-500,
+.dark .bg-card .text-cyan-400,
+.dark .bg-card .text-emerald-400,
+.dark .bg-card .text-teal-400 {
+  color: inherit !important;
 }
 
-.dark .text-slate-900,
-.dark .text-slate-800,
-.dark .text-slate-700 {
-  color: hsl(210 40% 98%) !important;
+/* Dark Mode - Higher specificity for card text */
+.dark .rounded-lg.border.bg-card .text-foreground {
+  color: white !important;
 }
 
-.dark .text-gray-800,
-.dark .text-gray-700,
-.dark .text-gray-600 {
-  color: hsl(210 40% 98%) !important;
+.dark .rounded-lg.border.bg-card .text-gray-900 {
+  color: white !important;
 }
 
-/* Dark Mode - Secondary text (muted-foreground) needs higher contrast */
-.dark .text-muted-foreground {
+.dark .rounded-lg.border.bg-card .text-muted-foreground {
   color: hsl(210 40% 90%) !important;
 }
 
-/* Dark Mode - Card title text */
-.dark .rounded-lg.border.bg-card h1,
-.dark .rounded-lg.border.bg-card h2,
-.dark .rounded-lg.border.bg-card h3,
-.dark .rounded-lg.border.bg-card h4,
-.dark .rounded-lg.border.bg-card h5,
-.dark .rounded-lg.border.bg-card h6 {
+/* Dark Mode - Tabs in cards */
+.dark .bg-card [role="tabpanel"],
+.dark .bg-card [role="tab"] {
   color: white !important;
 }
 
-/* Dark Mode - Card body text */
-.dark .rounded-lg.border.bg-card p,
-.dark .rounded-lg.border.bg-card span,
-.dark .rounded-lg.border.bg-card div {
-  color: inherit;
-}
-
-/* Override specific dark text colors that appear on dark backgrounds */
-.dark .text-\[#1A1A1A\],
-.dark .text-\[#1E1E1E\],
-.dark .text-\[#333333\],
-.dark .text-\[#444444\],
-.dark .text-\[#555555\] {
+/* Dark Mode - Specific text element fixes */
+.dark .bg-card .font-semibold:not([class*="text-green"]):not([class*="text-blue"]):not([class*="text-red"]):not([class*="text-yellow"]):not([class*="text-orange"]):not([class*="text-purple"]):not([class*="text-pink"]):not([class*="text-cyan"]):not([class*="text-emerald"]):not([class*="text-teal"]) {
   color: white !important;
 }
 
-/* Fix muted foreground specifically in cards */
-.dark .bg-card .text-muted-foreground,
-.dark .bg-card [class*="text-muted"] {
-  color: hsl(210 40% 90%) !important;
-}
-
-/* Dark Mode - Badge text that might be on dark background */
-.dark .rounded-full .text-muted-foreground {
-  color: hsl(210 40% 90%) !important;
-}
-
-/* Dark Mode - Tab content text */
-.dark [role="tabpanel"] .text-foreground,
-.dark [role="tabpanel"] .text-gray-900 {
+/* Dark Mode - Numbers and values in cards */
+.dark .bg-card .font-bold {
   color: white !important;
 }
 
-/* Fix grid and flex containers with text */
-.dark .grid.grid-cols-2 .font-semibold:not(.text-green-500):not(.text-blue-500):not(.text-yellow-500) {
-  color: white !important;
-}
-
-/* Ensure numbers and stats are always readable */
-.dark .font-semibold:not([class*="text-green"]):not([class*="text-blue"]):not([class*="text-red"]):not([class*="text-yellow"]):not([class*="text-orange"]):not([class*="text-purple"]) {
+.dark .bg-card .font-medium {
   color: white !important;
 }
