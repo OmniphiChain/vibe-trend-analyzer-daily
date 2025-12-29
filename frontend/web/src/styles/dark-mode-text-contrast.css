@@ -161,3 +161,33 @@
 .dark [data-radix-select-trigger]:not([data-state="open"]) {
   color: white !important;
 }
+
+/* Dark mode - Radix Popover (used by Select) */
+.dark [data-radix-popover-content],
+.dark [role="listbox"],
+.dark [role="presentation"] > div {
+  background-color: hsl(222.2 84% 4.9%) !important;
+  color: white !important;
+}
+
+/* Dark mode - Select container */
+.dark .bg-popover {
+  background-color: hsl(222.2 84% 4.9%) !important;
+  color: white !important;
+}
+
+.dark .text-popover-foreground {
+  color: white !important;
+}
+
+/* Ensure all text in dark mode dropdowns is visible */
+.dark [data-radix-select-item],
+.dark [role="option"] {
+  color: white !important;
+}
+
+.dark [data-radix-select-item]:hover,
+.dark [role="option"]:hover {
+  background-color: hsl(217.2 32.6% 17.5%) !important;
+  color: white !important;
+}
