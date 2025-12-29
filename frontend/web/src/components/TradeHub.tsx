@@ -354,7 +354,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                       <AvatarFallback className="text-lg">{trader.name[0]}</AvatarFallback>
                     </Avatar>
                     
-                    <h3 className="text-xl font-semibold mb-2 text-foreground dark:text-white">{trader.name}</h3>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{trader.name}</h3>
                     <p className="text-muted-foreground dark:text-white font-medium mb-3">{trader.expertise}</p>
                     
                     <div className="flex items-center justify-center gap-2 mb-3">
