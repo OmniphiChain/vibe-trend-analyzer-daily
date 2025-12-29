@@ -125,7 +125,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
         {/* Header Section */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-transparent dark:bg-gradient-to-r dark:from-primary dark:to-purple-600 dark:bg-clip-text">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
               💼 TradeHub
             </h1>
           </div>
