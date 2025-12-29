@@ -129,7 +129,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
               💼 TradeHub
             </h1>
           </div>
-          <p className="text-xl text-muted-foreground dark:text-white max-w-2xl mx-auto font-medium">
+          <p className="text-xl text-gray-600 dark:text-white max-w-2xl mx-auto font-medium">
             Learn from verified traders, access premium strategies, and monetize your trading expertise
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-6">
