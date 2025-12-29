@@ -406,10 +406,19 @@ export const MarketplaceItemDetail: React.FC<MarketplaceItemDetailProps> = ({
                 </div>
 
                 <div className="flex gap-2">
-                  <Button variant="outline" className="flex-1" size="sm">
-                    Follow
+                  <Button
+                    variant={isFollowing ? "default" : "outline"}
+                    className="flex-1"
+                    size="sm"
+                    onClick={() => setIsFollowing(!isFollowing)}
+                  >
+                    {isFollowing ? '✓ Following' : 'Follow'}
                   </Button>
-                  <Button className="flex-1" size="sm">
+                  <Button
+                    className="flex-1"
+                    size="sm"
+                    onClick={() => setShowInstructorProfile(true)}
+                  >
                     View Profile
                   </Button>
                 </div>
