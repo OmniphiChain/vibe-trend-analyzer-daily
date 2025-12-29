@@ -312,7 +312,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Trending Tab */}
           <TabsContent value="trending" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2 text-foreground dark:text-white">🔥 Trending Now</h2>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">🔥 Trending Now</h2>
               <p className="text-muted-foreground dark:text-white font-medium">Most popular content based on community engagement</p>
             </div>
             
