@@ -37,6 +37,9 @@
 /* Import MoodMeter Theme Utilities */
 @import './components/MoodThemeUtilities.css';
 
+/* Import Dark Mode Text Contrast Fixes */
+@import './styles/dark-mode-text-contrast.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
