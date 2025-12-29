@@ -11,6 +11,16 @@
   --sentiment-neutral-bg: #F3F4F6;
 }
 
+/* Dark Mode Sentiment Colors */
+.dark {
+  --sentiment-positive-text: #FFFFFF;
+  --sentiment-positive-bg: #16A34A;
+  --sentiment-negative-text: #FFFFFF;
+  --sentiment-negative-bg: #DC2626;
+  --sentiment-neutral-text: #FFFFFF;
+  --sentiment-neutral-bg: #6B7280;
+}
+
 /* Positive Sentiment Styling */
 :root:not(.dark) .sentiment-positive,
 :root:not(.dark) .text-positive,
