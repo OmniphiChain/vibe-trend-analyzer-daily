@@ -315,7 +315,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {trendingContent.slice(0, 2).map((item) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow">
+                <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setSelectedItem(item)}>
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
