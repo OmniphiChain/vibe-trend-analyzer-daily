@@ -299,7 +299,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                             <span className="text-sm text-gray-900 dark:text-white">{item.rating}</span>
                           </div>
-                          <span className="text-lg font-bold text-foreground dark:text-primary">${item.price}</span>
+                          <span className="text-lg font-bold text-gray-900 dark:text-primary">${item.price}</span>
                         </div>
                       </div>
                     </div>
