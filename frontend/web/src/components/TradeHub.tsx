@@ -338,7 +338,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           <TabsContent value="creators" className="space-y-6">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">👥 Top Creators</h2>
-              <p className="text-muted-foreground dark:text-white font-medium">Verified traders with the highest credibility scores</p>
+              <p className="text-gray-600 dark:text-white font-medium">Verified traders with the highest credibility scores</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
