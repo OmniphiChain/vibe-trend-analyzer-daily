@@ -184,10 +184,6 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                 <SelectItem value="over200">Over $200</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" className="w-full md:w-auto">
-              <Filter className="h-4 w-4 mr-2" />
-              More Filters
-            </Button>
           </div>
         </div>
 
