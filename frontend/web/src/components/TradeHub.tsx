@@ -323,14 +323,14 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                     {index + 1}
                   </div>
                   <CardContent className="p-6 pt-8">
-                    <h3 className="text-lg font-semibold mb-2 text-foreground dark:text-white">{item.title}</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
                     <p className="text-sm text-muted-foreground dark:text-white font-medium mb-4">by {item.instructor}</p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1">
                         <TrendingUp className="h-4 w-4 text-green-500" />
                         <span className="text-sm text-green-500">+{Math.floor(Math.random() * 50 + 10)}%</span>
                       </div>
-                      <span className="text-lg font-bold text-foreground dark:text-primary">${item.price}</span>
+                      <span className="text-lg font-bold text-gray-900 dark:text-primary">${item.price}</span>
                     </div>
                   </CardContent>
                 </Card>
