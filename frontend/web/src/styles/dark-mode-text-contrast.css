@@ -105,3 +105,59 @@
 .min-h-screen {
   overflow-x: hidden !important;
 }
+
+/* ===== SELECT/DROPDOWN DARK MODE TEXT FIXES ===== */
+
+/* Dark mode - SelectTrigger (dropdown button) */
+.dark [data-radix-select-trigger] {
+  color: white !important;
+}
+
+/* Dark mode - Select button text must be white */
+.dark button[role="combobox"] {
+  color: white !important;
+}
+
+/* Dark mode - SelectValue text (the selected option display) */
+.dark [data-radix-select-trigger] span {
+  color: white !important;
+}
+
+/* Dark mode - SelectContent (dropdown menu) */
+.dark [data-radix-select-content] {
+  background-color: hsl(222.2 84% 4.9%) !important;
+  color: white !important;
+}
+
+/* Dark mode - SelectItem (individual options in dropdown) */
+.dark [data-radix-select-item] {
+  color: white !important;
+  background-color: transparent !important;
+}
+
+.dark [data-radix-select-item][data-state="checked"],
+.dark [data-radix-select-item][data-highlighted] {
+  background-color: hsl(217.2 32.6% 17.5%) !important;
+  color: white !important;
+}
+
+.dark [data-radix-select-item]:hover {
+  background-color: hsl(217.2 32.6% 17.5%) !important;
+  color: white !important;
+}
+
+/* Dark mode - SelectLabel */
+.dark [data-radix-select-label] {
+  color: white !important;
+}
+
+/* Dark mode - Select icon/chevron */
+.dark [data-radix-select-trigger] svg {
+  color: white !important;
+  opacity: 0.7 !important;
+}
+
+/* Dark mode - Placeholder text for unfilled selects */
+.dark [data-radix-select-trigger]:not([data-state="open"]) {
+  color: white !important;
+}
