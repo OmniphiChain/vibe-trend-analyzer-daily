@@ -47,6 +47,8 @@ export const MarketplaceItemDetail: React.FC<MarketplaceItemDetailProps> = ({
   onBack,
 }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [showInstructorProfile, setShowInstructorProfile] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const getCredibilityColor = (score: number) => {
     if (score >= 90) return 'text-green-500';
