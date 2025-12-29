@@ -235,7 +235,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{item.rating}</span>
+                        <span className="text-sm font-medium text-foreground dark:text-white">{item.rating}</span>
                       </div>
                       <span className="text-sm text-muted-foreground dark:text-white font-medium">
                         {item.type === "course" ? `${item.students} students` : `${item.subscribers} subscribers`}
