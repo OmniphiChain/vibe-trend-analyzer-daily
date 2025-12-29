@@ -389,18 +389,18 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                         <div className="text-muted-foreground dark:text-white font-medium">Monthly Return</div>
                       </div>
                       <div>
-                        <div className="font-semibold text-foreground dark:text-white">{trader.followers.toLocaleString()}</div>
+                        <div className="font-semibold text-gray-900 dark:text-white">{trader.followers.toLocaleString()}</div>
                         <div className="text-muted-foreground dark:text-white font-medium">Followers</div>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                       <div>
-                        <div className="font-semibold text-foreground dark:text-white">{trader.courses}</div>
+                        <div className="font-semibold text-gray-900 dark:text-white">{trader.courses}</div>
                         <div className="text-muted-foreground dark:text-white font-medium">Courses</div>
                       </div>
                       <div>
-                        <div className="font-semibold text-foreground dark:text-white">{trader.subscribers.toLocaleString()}</div>
+                        <div className="font-semibold text-gray-900 dark:text-white">{trader.subscribers.toLocaleString()}</div>
                         <div className="text-muted-foreground dark:text-white font-medium">Subscribers</div>
                       </div>
                     </div>
