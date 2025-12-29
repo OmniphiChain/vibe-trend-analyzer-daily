@@ -78,6 +78,16 @@ export const MarketplaceItemDetail: React.FC<MarketplaceItemDetailProps> = ({
     { id: 3, author: 'Mike Johnson', rating: 5, comment: 'This course helped me understand options trading much better.', date: '2 weeks ago' },
   ];
 
+  // Show instructor profile if requested
+  if (showInstructorProfile) {
+    return (
+      <InstructorProfile
+        trader={trader}
+        onBack={() => setShowInstructorProfile(false)}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
       {/* Header */}
