@@ -289,7 +289,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                           {item.badge}
                         </Badge>
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground dark:text-white font-medium">by {item.instructor}</p>
+                        <p className="text-sm text-gray-600 dark:text-white font-medium">by {item.instructor}</p>
                         <div className="flex items-center gap-4 pt-2">
                           <div className="flex items-center gap-1">
                             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
