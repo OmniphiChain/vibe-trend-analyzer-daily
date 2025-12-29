@@ -189,11 +189,11 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="marketplace" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="marketplace">🏪 Marketplace</TabsTrigger>
-            <TabsTrigger value="featured">⭐ Featured</TabsTrigger>
-            <TabsTrigger value="trending">🔥 Trending</TabsTrigger>
-            <TabsTrigger value="creators">👥 Top Creators</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 dark:text-white">
+            <TabsTrigger value="marketplace" className="dark:text-white data-[state=active]:dark:text-white">🏪 Marketplace</TabsTrigger>
+            <TabsTrigger value="featured" className="dark:text-white data-[state=active]:dark:text-white">⭐ Featured</TabsTrigger>
+            <TabsTrigger value="trending" className="dark:text-white data-[state=active]:dark:text-white">🔥 Trending</TabsTrigger>
+            <TabsTrigger value="creators" className="dark:text-white data-[state=active]:dark:text-white">👥 Top Creators</TabsTrigger>
           </TabsList>
 
           {/* Marketplace Tab */}
