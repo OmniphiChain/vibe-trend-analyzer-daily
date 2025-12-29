@@ -11,6 +11,16 @@
   --sentiment-neutral-bg: #F3F4F6;
 }
 
+/* Dark Mode Sentiment Colors */
+.dark {
+  --sentiment-positive-text: #FFFFFF;
+  --sentiment-positive-bg: #16A34A;
+  --sentiment-negative-text: #FFFFFF;
+  --sentiment-negative-bg: #DC2626;
+  --sentiment-neutral-text: #FFFFFF;
+  --sentiment-neutral-bg: #6B7280;
+}
+
 /* Positive Sentiment Styling */
 :root:not(.dark) .sentiment-positive,
 :root:not(.dark) .text-positive,
@@ -136,4 +146,73 @@
   background: linear-gradient(135deg, #F3F4F6 0%, #6B7280 100%) !important;
   color: #6B7280 !important;
   border: 1px solid #6B7280 !important;
+}
+
+/* ===== DARK MODE SENTIMENT COLORS ===== */
+
+/* Dark Mode - Positive Sentiment */
+.dark .sentiment-positive,
+.dark .text-positive,
+.dark .bullish {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+.dark .bg-positive,
+.dark .sentiment-positive-bg {
+  background-color: #16A34A !important;
+  color: #FFFFFF !important;
+  border-color: #16A34A !important;
+}
+
+/* Dark Mode - Negative Sentiment */
+.dark .sentiment-negative,
+.dark .text-negative,
+.dark .bearish {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+.dark .bg-negative,
+.dark .sentiment-negative-bg {
+  background-color: #DC2626 !important;
+  color: #FFFFFF !important;
+  border-color: #DC2626 !important;
+}
+
+/* Dark Mode - Neutral Sentiment */
+.dark .sentiment-neutral,
+.dark .text-neutral,
+.dark .neutral {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+.dark .bg-neutral,
+.dark .sentiment-neutral-bg {
+  background-color: #6B7280 !important;
+  color: #FFFFFF !important;
+  border-color: #6B7280 !important;
+}
+
+/* Dark Mode - Badge-specific sentiment styling */
+.dark .badge-positive {
+  background: #16A34A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #16A34A !important;
+  font-weight: 600 !important;
+}
+
+.dark .badge-negative {
+  background: #DC2626 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #DC2626 !important;
+  font-weight: 600 !important;
+}
+
+.dark .badge-neutral {
+  background: #6B7280 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #6B7280 !important;
+  font-weight: 600 !important;
 }

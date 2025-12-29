@@ -125,11 +125,11 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
         {/* Header Section */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
-            <h1 className="text-4xl font-bold text-foreground dark:text-transparent dark:bg-gradient-to-r dark:from-primary dark:to-purple-600 dark:bg-clip-text">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
               💼 TradeHub
             </h1>
           </div>
-          <p className="text-xl text-muted-foreground dark:text-white max-w-2xl mx-auto font-medium">
+          <p className="text-xl text-gray-600 dark:text-white max-w-2xl mx-auto font-medium">
             Learn from verified traders, access premium strategies, and monetize your trading expertise
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-6">
@@ -152,7 +152,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
         <div className="mb-8">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500" />
               <Input
                 placeholder="Search courses, strategies, or traders..."
                 value={searchQuery}
@@ -161,7 +161,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
               />
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger className="w-full md:w-48 text-gray-900 dark:text-white">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
@@ -173,7 +173,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
               </SelectContent>
             </Select>
             <Select value={priceFilter} onValueChange={setPriceFilter}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger className="w-full md:w-48 text-gray-900 dark:text-white">
                 <SelectValue placeholder="Price Range" />
               </SelectTrigger>
               <SelectContent>
@@ -184,20 +184,16 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                 <SelectItem value="over200">Over $200</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" className="w-full md:w-auto">
-              <Filter className="h-4 w-4 mr-2" />
-              More Filters
-            </Button>
           </div>
         </div>
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="marketplace" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="marketplace">🏪 Marketplace</TabsTrigger>
-            <TabsTrigger value="featured">⭐ Featured</TabsTrigger>
-            <TabsTrigger value="trending">🔥 Trending</TabsTrigger>
-            <TabsTrigger value="creators">👥 Top Creators</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 dark:text-white">
+            <TabsTrigger value="marketplace" className="dark:text-white data-[state=active]:dark:text-white">🏪 Marketplace</TabsTrigger>
+            <TabsTrigger value="featured" className="dark:text-white data-[state=active]:dark:text-white">⭐ Featured</TabsTrigger>
+            <TabsTrigger value="trending" className="dark:text-white data-[state=active]:dark:text-white">🔥 Trending</TabsTrigger>
+            <TabsTrigger value="creators" className="dark:text-white data-[state=active]:dark:text-white">👥 Top Creators</TabsTrigger>
           </TabsList>
 
           {/* Marketplace Tab */}
@@ -207,7 +203,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                 <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardHeader className="space-y-4">
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg line-clamp-2">{item.title}</CardTitle>
+                      <CardTitle className="text-lg line-clamp-2 text-gray-900 dark:text-white">{item.title}</CardTitle>
                       {item.badge && (
                         <Badge
                           variant={item.badge === "BESTSELLER" ? "default" : "secondary"}
@@ -228,22 +224,22 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                         <AvatarImage src="/placeholder.svg" />
                         <AvatarFallback>{item.instructor[0]}</AvatarFallback>
                       </Avatar>
-                      <span className="text-sm text-muted-foreground dark:text-white font-medium">{item.instructor}</span>
+                      <span className="text-sm text-gray-600 dark:text-white font-medium">{item.instructor}</span>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{item.rating}</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">{item.rating}</span>
                       </div>
-                      <span className="text-sm text-muted-foreground dark:text-white font-medium">
+                      <span className="text-sm text-gray-600 dark:text-white font-medium">
                         {item.type === "course" ? `${item.students} students` : `${item.subscribers} subscribers`}
                       </span>
                     </div>
-                    
+
                     {item.type === "course" && item.duration && (
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-white font-medium">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-white font-medium">
                         <Play className="h-3 w-3" />
                         {item.duration}
                       </div>
@@ -267,8 +263,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Featured Tab */}
           <TabsContent value="featured" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2">Featured This Week</h2>
-              <p className="text-muted-foreground dark:text-white font-medium">Hand-picked content from our top-rated educators</p>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Featured This Week</h2>
+              <p className="text-gray-600 dark:text-white font-medium">Hand-picked content from our top-rated educators</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -276,8 +272,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                 <Card key={item.id} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-lg flex items-center justify-center">
-                        <BookOpen className="h-8 w-8 text-foreground dark:text-primary" />
+                      <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <BookOpen className="h-8 w-8 text-white" />
                       </div>
                       <div className="flex-1 space-y-2">
                         <Badge
@@ -292,14 +288,14 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                         >
                           {item.badge}
                         </Badge>
-                        <h3 className="text-xl font-semibold">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground dark:text-white font-medium">by {item.instructor}</p>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+                        <p className="text-sm text-gray-600 dark:text-white font-medium">by {item.instructor}</p>
                         <div className="flex items-center gap-4 pt-2">
                           <div className="flex items-center gap-1">
                             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                            <span className="text-sm">{item.rating}</span>
+                            <span className="text-sm text-gray-900 dark:text-white">{item.rating}</span>
                           </div>
-                          <span className="text-lg font-bold text-foreground dark:text-primary">${item.price}</span>
+                          <span className="text-lg font-bold text-gray-900 dark:text-primary">${item.price}</span>
                         </div>
                       </div>
                     </div>
@@ -312,8 +308,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Trending Tab */}
           <TabsContent value="trending" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2">🔥 Trending Now</h2>
-              <p className="text-muted-foreground dark:text-white font-medium">Most popular content based on community engagement</p>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">🔥 Trending Now</h2>
+              <p className="text-gray-600 dark:text-white font-medium">Most popular content based on community engagement</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -323,14 +319,14 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                     {index + 1}
                   </div>
                   <CardContent className="p-6 pt-8">
-                    <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground dark:text-white font-medium mb-4">by {item.instructor}</p>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-white font-medium mb-4">by {item.instructor}</p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1">
                         <TrendingUp className="h-4 w-4 text-green-500" />
                         <span className="text-sm text-green-500">+{Math.floor(Math.random() * 50 + 10)}%</span>
                       </div>
-                      <span className="text-lg font-bold text-foreground dark:text-primary">${item.price}</span>
+                      <span className="text-lg font-bold text-gray-900 dark:text-primary">${item.price}</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -341,8 +337,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           {/* Top Creators Tab */}
           <TabsContent value="creators" className="space-y-6">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2">👥 Top Creators</h2>
-              <p className="text-muted-foreground dark:text-white font-medium">Verified traders with the highest credibility scores</p>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">👥 Top Creators</h2>
+              <p className="text-gray-600 dark:text-white font-medium">Verified traders with the highest credibility scores</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -354,8 +350,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                       <AvatarFallback className="text-lg">{trader.name[0]}</AvatarFallback>
                     </Avatar>
                     
-                    <h3 className="text-xl font-semibold mb-2">{trader.name}</h3>
-                    <p className="text-muted-foreground dark:text-white font-medium mb-3">{trader.expertise}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{trader.name}</h3>
+                    <p className="text-gray-600 dark:text-white font-medium mb-3">{trader.expertise}</p>
                     
                     <div className="flex items-center justify-center gap-2 mb-3">
                       <Badge
@@ -389,18 +385,18 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                         <div className="text-muted-foreground dark:text-white font-medium">Monthly Return</div>
                       </div>
                       <div>
-                        <div className="font-semibold">{trader.followers.toLocaleString()}</div>
+                        <div className="font-semibold text-gray-900 dark:text-white">{trader.followers.toLocaleString()}</div>
                         <div className="text-muted-foreground dark:text-white font-medium">Followers</div>
                       </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                       <div>
-                        <div className="font-semibold">{trader.courses}</div>
+                        <div className="font-semibold text-gray-900 dark:text-white">{trader.courses}</div>
                         <div className="text-muted-foreground dark:text-white font-medium">Courses</div>
                       </div>
                       <div>
-                        <div className="font-semibold">{trader.subscribers.toLocaleString()}</div>
+                        <div className="font-semibold text-gray-900 dark:text-white">{trader.subscribers.toLocaleString()}</div>
                         <div className="text-muted-foreground dark:text-white font-medium">Subscribers</div>
                       </div>
                     </div>
@@ -424,8 +420,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
         <div className="mt-16 text-center">
           <Card className="bg-gradient-to-r from-primary/10 to-purple-600/10 border-primary/20">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4 text-foreground dark:text-white">Ready to Monetize Your Trading Expertise?</h2>
-              <p className="text-muted-foreground dark:text-white font-medium mb-6 max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Monetize Your Trading Expertise?</h2>
+              <p className="text-gray-600 dark:text-white font-medium mb-6 max-w-2xl mx-auto">
                 Join our community of verified traders and start earning from your knowledge.
                 Share courses, offer subscriptions, and build your following.
               </p>
