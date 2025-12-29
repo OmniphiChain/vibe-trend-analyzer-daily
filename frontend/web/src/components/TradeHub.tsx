@@ -7,18 +7,48 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MarketplaceItemDetail } from "@/components/MarketplaceItemDetail";
 
 interface TradeHubProps {
   onNavigate?: (section: string) => void;
+}
+
+interface MarketplaceItem {
+  id: number;
+  title: string;
+  type: 'course' | 'subscription';
+  price: number;
+  rating: number;
+  students?: number;
+  subscribers?: number;
+  instructor: string;
+  duration?: string;
+  period?: string;
+  badge: string;
+}
+
+interface TraderProfile {
+  id: number;
+  name: string;
+  avatar: string;
+  credibilityScore: number;
+  followers: number;
+  expertise: string;
+  monthlyReturn: string;
+  isVerified: boolean;
+  badge: string;
+  courses: number;
+  subscribers: number;
 }
 
 export const TradeHub = ({ onNavigate }: TradeHubProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceFilter, setPriceFilter] = useState("all");
+  const [selectedItem, setSelectedItem] = useState<MarketplaceItem | null>(null);
 
   // Mock data for featured traders
-  const featuredTraders = [
+  const featuredTraders: TraderProfile[] = [
     {
       id: 1,
       name: "Sarah Chen",
@@ -61,7 +91,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
   ];
 
   // Mock data for trending content
-  const trendingContent = [
+  const trendingContent: MarketplaceItem[] = [
     {
       id: 1,
       title: "Advanced Options Strategies for Bull Markets",
@@ -97,6 +127,11 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
     }
   ];
 
+  // Get trader by name
+  const getTraderByName = (name: string): TraderProfile => {
+    return featuredTraders.find(t => t.name === name) || featuredTraders[0];
+  };
+
   const categories = [
     { id: "all", label: "All Categories", icon: TrendingUp },
     { id: "courses", label: "📚 Courses", icon: BookOpen },
@@ -118,6 +153,17 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
     if (score >= 70) return "Gold";
     return "Silver";
   };
+
+  // Show detail view if item is selected
+  if (selectedItem) {
+    return (
+      <MarketplaceItemDetail
+        item={selectedItem}
+        trader={getTraderByName(selectedItem.instructor)}
+        onBack={() => setSelectedItem(null)}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
@@ -200,7 +246,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           <TabsContent value="marketplace" className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trendingContent.map((item) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+                <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setSelectedItem(item)}>
                   <CardHeader className="space-y-4">
                     <div className="flex items-start justify-between">
                       <CardTitle className="text-lg line-clamp-2 text-gray-900 dark:text-white">{item.title}</CardTitle>
@@ -269,7 +315,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {trendingContent.slice(0, 2).map((item) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow">
+                <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setSelectedItem(item)}>
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
@@ -314,7 +360,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trendingContent.map((item, index) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow relative">
+                <Card key={item.id} className="hover:shadow-lg transition-shadow relative cursor-pointer" onClick={() => setSelectedItem(item)}>
                   <div className="absolute top-2 left-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                     {index + 1}
                   </div>
