@@ -246,7 +246,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
           <TabsContent value="marketplace" className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trendingContent.map((item) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+                <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setSelectedItem(item)}>
                   <CardHeader className="space-y-4">
                     <div className="flex items-start justify-between">
                       <CardTitle className="text-lg line-clamp-2 text-gray-900 dark:text-white">{item.title}</CardTitle>
