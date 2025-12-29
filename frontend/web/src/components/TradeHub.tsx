@@ -7,15 +7,45 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MarketplaceItemDetail } from "@/components/MarketplaceItemDetail";
 
 interface TradeHubProps {
   onNavigate?: (section: string) => void;
+}
+
+interface MarketplaceItem {
+  id: number;
+  title: string;
+  type: 'course' | 'subscription';
+  price: number;
+  rating: number;
+  students?: number;
+  subscribers?: number;
+  instructor: string;
+  duration?: string;
+  period?: string;
+  badge: string;
+}
+
+interface TraderProfile {
+  id: number;
+  name: string;
+  avatar: string;
+  credibilityScore: number;
+  followers: number;
+  expertise: string;
+  monthlyReturn: string;
+  isVerified: boolean;
+  badge: string;
+  courses: number;
+  subscribers: number;
 }
 
 export const TradeHub = ({ onNavigate }: TradeHubProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceFilter, setPriceFilter] = useState("all");
+  const [selectedItem, setSelectedItem] = useState<MarketplaceItem | null>(null);
 
   // Mock data for featured traders
   const featuredTraders = [
