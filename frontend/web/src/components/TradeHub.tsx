@@ -154,6 +154,17 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
     return "Silver";
   };
 
+  // Show detail view if item is selected
+  if (selectedItem) {
+    return (
+      <MarketplaceItemDetail
+        item={selectedItem}
+        trader={getTraderByName(selectedItem.instructor)}
+        onBack={() => setSelectedItem(null)}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
       <div className="container mx-auto px-4 py-8">
