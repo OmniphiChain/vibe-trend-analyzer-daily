@@ -191,3 +191,55 @@
   background-color: hsl(217.2 32.6% 17.5%) !important;
   color: white !important;
 }
+
+/* ===== TABS/TABLIST DARK MODE TEXT FIXES ===== */
+
+/* Dark mode - TabsList background and text */
+.dark [role="tablist"] {
+  background-color: hsl(217.2 32.6% 17.5%) !important;
+  color: white !important;
+}
+
+/* Dark mode - TabsTrigger (inactive tab) */
+.dark [role="tab"]:not([data-state="active"]) {
+  color: white !important;
+}
+
+/* Dark mode - TabsTrigger (active tab) */
+.dark [role="tab"][data-state="active"] {
+  color: white !important;
+  background-color: hsl(222.2 84% 4.9%) !important;
+}
+
+/* Dark mode - TabsTrigger hover state */
+.dark [role="tab"]:hover {
+  color: white !important;
+}
+
+/* Dark mode - Ensure TabsList text-muted-foreground is visible */
+.dark .text-muted-foreground[role="tablist"],
+.dark [role="tablist"] .text-muted-foreground {
+  color: white !important;
+}
+
+/* Dark mode - Radix Tabs container */
+.dark [data-radix-tabs-content] {
+  color: white !important;
+}
+
+/* ===== TITLE/HEADING DARK MODE TEXT FIXES ===== */
+
+/* Ensure h1 titles are visible in dark mode */
+.dark h1 {
+  color: inherit !important;
+}
+
+/* Fix text-foreground on headings in dark mode */
+.dark .text-foreground h1,
+.dark .text-foreground h2,
+.dark .text-foreground h3,
+.dark h1.text-foreground,
+.dark h2.text-foreground,
+.dark h3.text-foreground {
+  color: white !important;
+}
