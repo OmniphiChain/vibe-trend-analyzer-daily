@@ -71,3 +71,37 @@
 .dark .bg-card .font-medium {
   color: white !important;
 }
+
+/* ===== SCROLL AND DROPDOWN LAYOUT FIXES ===== */
+
+/* Fix select dropdown z-index to prevent scroll interference */
+[data-radix-select-content] {
+  z-index: 9999 !important;
+}
+
+/* Ensure select trigger doesn't cause layout shift */
+[data-radix-select-trigger] {
+  overflow: visible !important;
+}
+
+/* Fix select content positioning */
+[data-radix-popper-content-wrapper] {
+  pointer-events: auto !important;
+  z-index: 9999 !important;
+}
+
+/* Ensure proper overflow handling in filter section */
+.flex.flex-col.md\:flex-row.gap-4 {
+  overflow: visible !important;
+}
+
+/* Prevent scroll interference from dropdown menus */
+[role="listbox"] {
+  position: absolute !important;
+  z-index: 9999 !important;
+}
+
+/* Fix TradeHub container scrolling */
+.min-h-screen {
+  overflow-x: hidden !important;
+}
