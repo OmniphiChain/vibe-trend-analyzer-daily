@@ -272,8 +272,8 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                 <Card key={item.id} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-lg flex items-center justify-center">
-                        <BookOpen className="h-8 w-8 text-foreground dark:text-primary" />
+                      <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <BookOpen className="h-8 w-8 text-white" />
                       </div>
                       <div className="flex-1 space-y-2">
                         <Badge
