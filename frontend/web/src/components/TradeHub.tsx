@@ -360,7 +360,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trendingContent.map((item, index) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow relative">
+                <Card key={item.id} className="hover:shadow-lg transition-shadow relative cursor-pointer" onClick={() => setSelectedItem(item)}>
                   <div className="absolute top-2 left-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                     {index + 1}
                   </div>
