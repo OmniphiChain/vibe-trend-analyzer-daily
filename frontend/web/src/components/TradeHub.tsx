@@ -207,7 +207,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
                 <Card key={item.id} className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardHeader className="space-y-4">
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg line-clamp-2 text-foreground dark:text-white">{item.title}</CardTitle>
+                      <CardTitle className="text-lg line-clamp-2 text-gray-900 dark:text-white">{item.title}</CardTitle>
                       {item.badge && (
                         <Badge
                           variant={item.badge === "BESTSELLER" ? "default" : "secondary"}
