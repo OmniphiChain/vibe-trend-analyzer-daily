@@ -229,16 +229,16 @@
 
 /* ===== TITLE/HEADING DARK MODE TEXT FIXES ===== */
 
-/* Ensure h1 titles are visible in dark mode */
-.dark h1 {
-  color: inherit !important;
+/* Ensure h1 titles are visible in dark mode (but not gradient titles) */
+.dark h1:not([class*="bg-gradient"]):not([class*="dark:bg-gradient"]) {
+  color: white !important;
 }
 
 /* Fix text-foreground on headings in dark mode */
-.dark .text-foreground h1,
+.dark .text-foreground h1:not([class*="bg-gradient"]):not([class*="dark:bg-gradient"]),
 .dark .text-foreground h2,
 .dark .text-foreground h3,
-.dark h1.text-foreground,
+.dark h1.text-foreground:not([class*="bg-gradient"]):not([class*="dark:bg-gradient"]),
 .dark h2.text-foreground,
 .dark h3.text-foreground {
   color: white !important;
