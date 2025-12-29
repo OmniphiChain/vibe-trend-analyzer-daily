@@ -424,7 +424,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
         <div className="mt-16 text-center">
           <Card className="bg-gradient-to-r from-primary/10 to-purple-600/10 border-primary/20">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4 text-foreground dark:text-white">Ready to Monetize Your Trading Expertise?</h2>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Monetize Your Trading Expertise?</h2>
               <p className="text-muted-foreground dark:text-white font-medium mb-6 max-w-2xl mx-auto">
                 Join our community of verified traders and start earning from your knowledge.
                 Share courses, offer subscriptions, and build your following.
