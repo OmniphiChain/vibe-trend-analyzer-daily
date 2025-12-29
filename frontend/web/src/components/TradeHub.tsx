@@ -161,7 +161,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
               />
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger className="w-full md:w-48 text-gray-900 dark:text-white">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
@@ -173,7 +173,7 @@ export const TradeHub = ({ onNavigate }: TradeHubProps) => {
               </SelectContent>
             </Select>
             <Select value={priceFilter} onValueChange={setPriceFilter}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger className="w-full md:w-48 text-gray-900 dark:text-white">
                 <SelectValue placeholder="Price Range" />
               </SelectTrigger>
               <SelectContent>
