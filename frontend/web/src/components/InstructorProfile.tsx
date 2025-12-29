@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Star, Users, TrendingUp, BookOpen, MessageCircle, Share2, Award, CheckCircle, Mail, Globe } from 'lucide-react';
+import { ArrowLeft, Star, Users, TrendingUp, BookOpen, MessageCircle, Share2, Award, CheckCircle, Mail, Globe, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
